@@ -1,0 +1,20 @@
+// tests/enums/PolicySigner.enums.ts
+
+export enum PolicySignerSystemRole {
+  EMPLOYEE = 'EMPLOYEE',
+  HR = 'HR',
+  ADMIN = 'ADMIN',
+  SUPER_ADMIN = 'SUPER_ADMIN',
+  MANAGER = 'MANAGER',
+  DIRECTOR_OF_NURSING = 'DIRECTOR_OF_NURSING',
+  QA_NURSING = 'QA_NURSING',
+  COMPLIANCE_OFFICER = 'COMPLIANCE_OFFICER',
+}
+
+export enum AnnotationType {
+  SIGNATURE = 'SIGNATURE',
+  INITIALS = 'INITIALS',
+  TEXT_INPUT = 'TEXT_INPUT',
+  DATE = 'DATE',
+  CHECKBOX = 'CHECKBOX',
+}

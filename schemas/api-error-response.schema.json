@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "API Error Response",
+  "description": "Generic error envelope returned by the API for 4xx/5xx responses",
+  "type": "object",
+  "required": ["statusCode", "success", "error", "message"],
+  "properties": {
+    "statusCode": {
+      "type": "number"
+    },
+    "success": {
+      "type": "boolean",
+      "enum": [false]
+    },
+    "error": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "validationErrors": {
+      "type": "array"
+    }
+  }
+}
