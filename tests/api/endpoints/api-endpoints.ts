@@ -33,6 +33,7 @@ export const ENDPOINTS = {
     BASE: '/onboarding/config/templates',
     BY_ID: (id: string) => `/onboarding/config/templates/${id}`,
     BY_CATEGORY: (categoryId: string) => `/onboarding/config/template-categories/${categoryId}/templates`,
+    BY_TYPE: (type: string) => `/onboarding/config/templates?type=${type}`,
     SECTIONS: '/onboarding/config/templates/sections',
     SECTIONS_REORDER: '/onboarding/config/templates/sections/reorder',
     SECTIONS_BY_ID: (id: string) => `/onboarding/config/templates/${id}/sections`,

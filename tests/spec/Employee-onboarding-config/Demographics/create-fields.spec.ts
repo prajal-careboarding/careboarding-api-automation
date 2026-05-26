@@ -2,6 +2,9 @@ import { test, expect } from '@playwright/test';
 import { ApiClient } from '../../../helpers/ApiClient';
 import { CreateFieldsRequest } from '../../../models/request/Employee-onboarding-config/Demographics/create-fields';
 import { LoginHelper } from '@helpers/loginHelper';
+import { ENDPOINTS } from '@api/endpoints/api-endpoints';
+
+import createFieldMegaPayload from '../../../test-data/static/createFieldMegaPayload.json';
 
 test.describe('CREATE FIELDS API', () => {
   let api: ApiClient;
@@ -271,6 +274,33 @@ test.describe('CREATE FIELDS API', () => {
     // URL: /onboarding/config/sections//fields
     const payload: CreateFieldsRequest = []; // TODO: Populate payload
     const response = await api.post('/onboarding/config/sections//fields', payload);
+    console.log(await response.json());
+    expect(response.ok()).toBeTruthy();
+  });
+});
+
+test.describe('CREATE Field Using Mega Payload', () => {
+  let api: ApiClient;
+  let testSectionId: string;
+
+  test.beforeEach(async ({ request }) => {
+    const loginHelper = new LoginHelper(request);
+    await loginHelper.login();
+    api = new ApiClient(request);
+    // get testSectionId from API
+    const response = await api.get(ENDPOINTS.TEMPLATES.BY_TYPE('DEMOGRAPHICS'));
+    const templates = await response.json();
+    testSectionId = templates.data[0].sections[templates.data[0].sections.length - 1].id;
+    console.log(`Test Section ID: ${testSectionId}`);
+  });
+
+  test('Create Fields in a Section', async () => {
+    // URL: /onboarding/config/sections/:sectionId/fields
+    const response = await api.post(
+      `/onboarding/config/sections/${testSectionId}/fields`,
+      createFieldMegaPayload
+    );
+    
     console.log(await response.json());
     expect(response.ok()).toBeTruthy();
   });

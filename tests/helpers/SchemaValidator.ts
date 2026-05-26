@@ -26,10 +26,7 @@ export class SchemaValidator {
    *
    * Throws on the first missing key.
    */
-  static assertRequiredFields(
-    data: Record<string, unknown>,
-    schema: Record<string, unknown>
-  ): void {
+  static assertRequiredFields(data: Record<string, unknown>, schema: Record<string, unknown>): void {
     const required = schema.required as string[] | undefined;
     if (!required) return;
 
