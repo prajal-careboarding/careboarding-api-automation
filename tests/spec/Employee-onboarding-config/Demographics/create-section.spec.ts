@@ -8,23 +8,21 @@ import { SystemTemplateIds } from 'tests/enums/SystemTemplates.enums';
 import { faker } from '@faker-js/faker';
 import { FillerRole } from 'tests/enums/Field.enums';
 import { ENDPOINTS } from '@api/endpoints/api-endpoints';
+import { getNextOrder } from '@helpers/sectionHelper';
 
 // ─── Schemas ──────────────────────────────────────────────────────────────────
 const successSchema = SchemaValidator.loadSchema('create-section-response.schema.json');
 const errorSchema = SchemaValidator.loadSchema('api-error-response.schema.json');
 
 test.describe('CREATE SECTION API', () => {
-  let login: LoginHelper;
   let api: ApiClient;
   const demographicsTemplateId: string = SystemTemplateIds.EMPLOYEE_DEMOGRAPHICS;
 
   test.beforeEach(async ({ request }) => {
-    login = new LoginHelper(request);
-    await login.login();
+    const loginHelper = new LoginHelper(request);
+    await loginHelper.login();
     api = new ApiClient(request);
   });
-
-
 
   // ─── 201 HAPPY PATH ─────────────────────────────────────────────────────────
 
@@ -32,16 +30,13 @@ test.describe('CREATE SECTION API', () => {
     const payload: CreateSectionRequest = {
       name: '[Automation] - ' + faker.lorem.words(2),
       description: '',
-      order: await getNextOrder(),
+      order: await getNextOrder(api, demographicsTemplateId),
       requiredRole: FillerRole.ANY,
       isRepeatable: true,
       isRehireOnly: false,
     };
 
-    const response = await api.post(
-      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, payload);
     const responseBody: CreateSectionResponse = await response.json();
     console.log(responseBody);
 
@@ -71,16 +66,13 @@ test.describe('CREATE SECTION API', () => {
     const payload: CreateSectionRequest = {
       name: '[Automation] EMPLOYER - ' + faker.lorem.words(2),
       description: faker.lorem.sentence(),
-      order: await getNextOrder(),
+      order: await getNextOrder(api),
       requiredRole: FillerRole.EMPLOYER,
       isRepeatable: false,
       isRehireOnly: false,
     };
 
-    const response = await api.post(
-      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, payload);
     const responseBody: CreateSectionResponse = await response.json();
     console.log(responseBody);
 
@@ -102,17 +94,14 @@ test.describe('CREATE SECTION API', () => {
     const payload: CreateSectionRequest = {
       name: '[Automation] Inline - ' + faker.lorem.words(2),
       description: faker.lorem.sentence(),
-      order: await getNextOrder(),
+      order: await getNextOrder(api),
       requiredRole: FillerRole.ANY,
       isRepeatable: false,
       isRehireOnly: false,
       fields: [],
     };
 
-    const response = await api.post(
-      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, payload);
     const responseBody: CreateSectionResponse = await response.json();
     console.log(responseBody);
 
@@ -132,16 +121,13 @@ test.describe('CREATE SECTION API', () => {
     const payload: CreateSectionRequest = {
       name: '[Automation] PHI - ' + faker.lorem.words(2),
       description: faker.lorem.sentence(),
-      order: await getNextOrder(),
+      order: await getNextOrder(api),
       requiredRole: FillerRole.EMPLOYEE,
       isRepeatable: false,
       isRehireOnly: true,
     };
 
-    const response = await api.post(
-      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, payload);
     const responseBody: CreateSectionResponse = await response.json();
     console.log(responseBody);
 
@@ -161,7 +147,7 @@ test.describe('CREATE SECTION API', () => {
     const payload: CreateSectionRequest = {
       name: '[Automation] Full - ' + faker.lorem.words(2),
       description: faker.lorem.sentence(),
-      order: await getNextOrder(),
+      order: await getNextOrder(api),
       requiredRole: FillerRole.ANY,
       isRepeatable: true,
       isRehireOnly: true,
@@ -169,10 +155,7 @@ test.describe('CREATE SECTION API', () => {
       fields: [],
     };
 
-    const response = await api.post(
-      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, payload);
     const responseBody: CreateSectionResponse = await response.json();
     console.log(responseBody);
 
@@ -199,10 +182,7 @@ test.describe('CREATE SECTION API', () => {
       requiredRole: FillerRole.ANY,
     };
 
-    const response = await api.post(
-      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, payload);
     const responseBody = await response.json();
     console.log(responseBody);
 
@@ -224,10 +204,7 @@ test.describe('CREATE SECTION API', () => {
       requiredRole: FillerRole.ANY,
     };
 
-    const response = await api.post(
-      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, payload);
     const responseBody = await response.json();
     console.log(responseBody);
 
@@ -250,10 +227,7 @@ test.describe('CREATE SECTION API', () => {
       requiredRole: FillerRole.ANY,
     };
 
-    const response = await api.post(
-      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, payload);
     const responseBody = await response.json();
     console.log(responseBody);
 
@@ -272,10 +246,7 @@ test.describe('CREATE SECTION API', () => {
     // Empty payload — all required fields absent
     const payload: Partial<CreateSectionRequest> = {};
 
-    const response = await api.post(
-      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, payload);
     const responseBody = await response.json();
     console.log(responseBody);
 
@@ -299,10 +270,7 @@ test.describe('CREATE SECTION API', () => {
       requiredRole: 'INVALID_ROLE',
     };
 
-    const response = await api.post(
-      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, payload);
     const responseBody = await response.json();
     console.log(responseBody);
 
@@ -326,10 +294,7 @@ test.describe('CREATE SECTION API', () => {
       requiredRole: 999,
     };
 
-    const response = await api.post(
-      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, payload);
     const responseBody = await response.json();
     console.log(responseBody);
 
@@ -351,7 +316,7 @@ test.describe('CREATE SECTION API', () => {
     await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, {
       name: sectionName,
       description: '',
-      order: await getNextOrder(),
+      order: await getNextOrder(api),
       requiredRole: FillerRole.ANY,
     });
 
@@ -359,7 +324,7 @@ test.describe('CREATE SECTION API', () => {
     const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, {
       name: sectionName,
       description: '',
-      order: await getNextOrder(),
+      order: await getNextOrder(api),
       requiredRole: FillerRole.ANY,
     });
     const responseBody = await response.json();
@@ -377,7 +342,7 @@ test.describe('CREATE SECTION API', () => {
   });
 
   test('Create Section Duplicate Order - 400', async () => {
-    const fixedOrder = await getNextOrder();
+    const fixedOrder = await getNextOrder(api);
 
     // First creation with the order
     await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, {
@@ -444,10 +409,7 @@ test.describe('CREATE SECTION API', () => {
       requiredRole: FillerRole.ANY,
     };
 
-    const response = await api.post(
-      `/onboarding/config/templates/${nonExistingTemplateId}/sections`,
-      payload
-    );
+    const response = await api.post(`/onboarding/config/templates/${nonExistingTemplateId}/sections`, payload);
     const responseBody = await response.json();
     console.log(responseBody);
 

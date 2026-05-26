@@ -40,12 +40,14 @@ export const ENDPOINTS = {
   },
   SECTIONS: {
     BASE: '/onboarding/config/sections',
-    NEXT_ORDER: (templateId: string) => `/onboarding/config/sections/${templateId}`,
+    NEXT_ORDER_SECTIONS: (templateId: string) => `/onboarding/config/sections/${templateId}`,
+    NEXT_ORDER_FIELDS: (sectionId: string) => `/onboarding/config/fields/${sectionId}`,
     BY_ID: (id: string) => `/onboarding/config/sections/${id}`,
     FIELDS: '/onboarding/config/sections/fields',
     FIELDS_REORDER: '/onboarding/config/sections/fields/reorder',
     FIELDS_BY_SECTION_ID: (sectionId: string) => `/onboarding/config/sections/${sectionId}/fields`,
     VISIBILITY: '/onboarding/config/sections/visibility',
+    SECTIONS_BY_TEMPLATE_ID: (templateId: string) => `/onboarding/config/templates/${templateId}/sections`,
   },
   FIELDS: {
     BY_ID: (id: string) => `/onboarding/config/fields/${id}`,

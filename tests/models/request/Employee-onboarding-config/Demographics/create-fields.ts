@@ -4,6 +4,7 @@ import { FieldType, DataTarget } from 'tests/enums/Field.enums';
  * Interface representing a single field object to be created within a section.
  */
 export interface CreateFieldItem {
+  key: string;
   type: FieldType | string;
   component: string;
   label: string;
