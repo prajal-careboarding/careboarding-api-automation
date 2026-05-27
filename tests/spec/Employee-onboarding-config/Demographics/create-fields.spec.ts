@@ -3,12 +3,11 @@ import { ApiClient } from '../../../helpers/ApiClient';
 import { CreateFieldsRequest } from '../../../models/request/Employee-onboarding-config/Demographics/create-fields';
 import { LoginHelper } from '@helpers/loginHelper';
 import { ENDPOINTS } from '@api/endpoints/api-endpoints';
-import { FieldType, DataTarget, VisibilityOperator, RuleAction } from 'tests/enums/Field.enums';
 import { assertGeneralSuccessResponse, assertGeneralErrorResponse } from '@helpers/assertionHelper';
-
 import megaPayload from '../../../test-data/static/createFieldMegaPayload.json';
 import { getNextOrder } from '@helpers/sectionHelper';
 import { asyncWrapProviders } from 'node:async_hooks';
+import { DataTarget, FieldType } from 'tests/enums/Field.enums';
 
 test.describe('CREATE FIELDS API', () => {
   let api: ApiClient;
@@ -28,16 +27,16 @@ test.describe('CREATE FIELDS API', () => {
   test('Create Fields in a Section', async () => {
     const payload: CreateFieldsRequest = [
       {
-        key: `test_general_${Date.now()}`,
         component: 'TextInput',
         type: FieldType.SHORT_TEXT,
-        label: 'General Field ',
+        label: 'General Field',
         isRequired: true,
         dataTarget: DataTarget.EAV,
-        order: 1,
+        order: await getNextOrder(api, testSectionId),
       },
     ];
     const response = await api.post(ENDPOINTS.SECTIONS.FIELDS_BY_SECTION_ID(testSectionId), payload);
+    console.log(await response.json());
     const result = await assertGeneralSuccessResponse(response, {
       statusCode: 201,
       message: 'Form Field created successfully',

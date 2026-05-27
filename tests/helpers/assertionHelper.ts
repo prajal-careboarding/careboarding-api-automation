@@ -26,10 +26,7 @@ export async function assertGeneralErrorResponse(
     const apiResponse = response as APIResponse;
     const expectedStatus = expected?.statusCode ?? 400;
 
-    expect(
-      apiResponse.status(),
-      `Expected HTTP status code to be ${expectedStatus} but got ${apiResponse.status()}`
-    ).toBe(expectedStatus);
+    expect(apiResponse.status(), `Expected HTTP status code to be ${expectedStatus} but got ${apiResponse.status()}`).toBe(expectedStatus);
 
     body = await apiResponse.json();
   } else {
@@ -90,10 +87,7 @@ export async function assertGeneralSuccessResponse<T = any>(
     const apiResponse = response as APIResponse;
     const expectedStatus = expected?.statusCode ?? 200;
 
-    expect(
-      apiResponse.status(),
-      `Expected HTTP status code to be ${expectedStatus} but got ${apiResponse.status()}`
-    ).toBe(expectedStatus);
+    expect(apiResponse.status(), `Expected HTTP status code to be ${expectedStatus} but got ${apiResponse.status()}`).toBe(expectedStatus);
 
     body = await apiResponse.json();
   } else {

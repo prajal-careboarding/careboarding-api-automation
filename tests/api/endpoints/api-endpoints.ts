@@ -56,9 +56,10 @@ export const ENDPOINTS = {
   EMPLOYEES: {
     BASE: '/employees',
     BY_ID: (id: string) => `/employees/${id}`,
-    DEMOGRAPHICS: (id: string) => `/employees/${id}/demographics`,
-    DOCUMENTS: (id: string) => `/employees/${id}/documents`,
-    REFERENCES: (id: string) => `/employees/${id}/references`,
+    CREATE_EMPLOYEE: '/employees',
+    DELETE_EMPLOYEE: (id: string) => `/employees/${id}`,
+    UPDATE_EMPLOYEE: (id: string) => `/employees/${id}`,
+    GET_EMPLOYEE: (id: string) => `/employees/${id}`,
   },
   ONBOARDING: {
     PACKAGES: '/onboarding/packages',
