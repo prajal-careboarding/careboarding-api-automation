@@ -26,7 +26,10 @@ export async function assertGeneralErrorResponse(
     const apiResponse = response as APIResponse;
     const expectedStatus = expected?.statusCode ?? 400;
 
-    expect(apiResponse.status(), `Expected HTTP status code to be ${expectedStatus} but got ${apiResponse.status()}`).toBe(expectedStatus);
+    expect(
+      apiResponse.status(),
+      `Expected HTTP status code to be ${expectedStatus} but got ${apiResponse.status()}`
+    ).toBe(expectedStatus);
 
     body = await apiResponse.json();
   } else {
@@ -41,12 +44,16 @@ export async function assertGeneralErrorResponse(
   expect(typeof body.error, 'Expected "error" to be a string').toBe('string');
   expect(typeof body.message, 'Expected "message" to be a string').toBe('string');
   expect(typeof body.timestamp, 'Expected "timestamp" to be a string').toBe('string');
-  expect(Array.isArray(body.validationErrors), 'Expected "validationErrors" to be an array').toBe(true);
+  expect(Array.isArray(body.validationErrors), 'Expected "validationErrors" to be an array').toBe(
+    true
+  );
 
   // Specific value assertions
   if (expected) {
     if (expected.statusCode !== undefined) {
-      expect(body.statusCode, `Expected "statusCode" to be ${expected.statusCode}`).toBe(expected.statusCode);
+      expect(body.statusCode, `Expected "statusCode" to be ${expected.statusCode}`).toBe(
+        expected.statusCode
+      );
     }
 
     if (expected.error !== undefined) {
@@ -55,9 +62,13 @@ export async function assertGeneralErrorResponse(
 
     if (expected.message !== undefined) {
       if (expected.message instanceof RegExp) {
-        expect(body.message, `Expected "message" to match pattern ${expected.message}`).toMatch(expected.message);
+        expect(body.message, `Expected "message" to match pattern ${expected.message}`).toMatch(
+          expected.message
+        );
       } else {
-        expect(body.message, `Expected "message" to be "${expected.message}"`).toBe(expected.message);
+        expect(body.message, `Expected "message" to be "${expected.message}"`).toBe(
+          expected.message
+        );
       }
     }
   }
@@ -87,7 +98,10 @@ export async function assertGeneralSuccessResponse<T = any>(
     const apiResponse = response as APIResponse;
     const expectedStatus = expected?.statusCode ?? 200;
 
-    expect(apiResponse.status(), `Expected HTTP status code to be ${expectedStatus} but got ${apiResponse.status()}`).toBe(expectedStatus);
+    expect(
+      apiResponse.status(),
+      `Expected HTTP status code to be ${expectedStatus} but got ${apiResponse.status()}`
+    ).toBe(expectedStatus);
 
     body = await apiResponse.json();
   } else {
@@ -104,9 +118,13 @@ export async function assertGeneralSuccessResponse<T = any>(
   if (expected) {
     if (expected.message !== undefined) {
       if (expected.message instanceof RegExp) {
-        expect(body.message, `Expected "message" to match pattern ${expected.message}`).toMatch(expected.message);
+        expect(body.message, `Expected "message" to match pattern ${expected.message}`).toMatch(
+          expected.message
+        );
       } else {
-        expect(body.message, `Expected "message" to be "${expected.message}"`).toBe(expected.message);
+        expect(body.message, `Expected "message" to be "${expected.message}"`).toBe(
+          expected.message
+        );
       }
     }
   }

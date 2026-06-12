@@ -9,6 +9,7 @@
     "outDir": "./dist",
     "rootDir": "./",
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@api/*": ["tests/api/*"],
       "@models/*": ["tests/models/*"],

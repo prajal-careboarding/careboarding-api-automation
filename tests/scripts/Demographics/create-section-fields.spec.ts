@@ -2,6 +2,7 @@ import { ApiClient } from '@helpers/ApiClient';
 import { LoginHelper } from '@helpers/loginHelper';
 import { DataHelper } from '@helpers/DataHelper';
 import { test, expect } from '@playwright/test';
+import { ENDPOINTS } from '@api/endpoints/api-endpoints';
 
 const testSectionId = 'eadd4124-f24b-41be-abe6-c8c151f3d673';
 
@@ -26,7 +27,7 @@ test.describe('Demographics - Section and Fields', () => {
       },
     ];
 
-    const res = await apiClient.post(`/onboarding/config/sections/${testSectionId}/fields`, createPayload);
+    const res = await apiClient.post(ENDPOINTS.FIELDS.CREATE_FIELDS(testSectionId), createPayload);
     const resBody = await res.json();
     console.dir(resBody);
   });

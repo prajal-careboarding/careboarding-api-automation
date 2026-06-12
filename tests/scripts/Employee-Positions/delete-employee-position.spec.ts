@@ -1,10 +1,14 @@
+import { ENDPOINTS } from '@api/endpoints/api-endpoints';
 import { Faker, faker } from '@faker-js/faker';
 import { ApiClient } from '@helpers/ApiClient';
+import { LoginHelper } from '@helpers/loginHelper';
 import { test, expect } from '@playwright/test';
 
 test('Delete employee position', async ({ request }) => {
+  const login = new LoginHelper(request);
+  await login.login();
   const apiClient = new ApiClient(request);
-  const employeeList = await apiClient.get(`/employee-positions`);
+  const employeeList = await apiClient.get(ENDPOINTS.EMPLOYEE_POSITIONS.GET_EMPLOYEE_POSITIONS);
   const employeeListBody = await employeeList.json();
   const poistionIds = employeeListBody.data.map((d: { id: string }) => d.id);
 

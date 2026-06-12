@@ -30,7 +30,6 @@ export class LoginHelper {
       email,
       password,
     });
-
     expect(response.status(), 'Login failed').toBe(200);
 
     const body = await response.json();
