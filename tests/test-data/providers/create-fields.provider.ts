@@ -38,7 +38,7 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
         component: 'TextInput',
         type: FieldType.SHORT_TEXT,
         label: 'Short Text Field ' + random.integer(5),
-        isRequired: true,
+        isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
       },
@@ -58,7 +58,7 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
         component: 'TextAreaInput',
         type: FieldType.LONG_TEXT,
         label: 'Long Text Field ' + random.integer(5),
-        isRequired: true,
+        isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
       },
@@ -78,12 +78,18 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
         component: 'NumberInput',
         type: FieldType.NUMBER,
         label: 'Number Field ' + random.integer(5),
-        isRequired: true,
+        isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
       },
     ],
-    expected: { status: 201, success: true, message: 'Form Field created successfully' },
+    expected: {
+      status: 201,
+      success: true,
+      message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
+    },
   },
   {
     name: 'DATE — basic',
@@ -92,12 +98,18 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
         component: 'DatePicker',
         type: FieldType.DATE,
         label: 'Date Field ' + random.integer(5),
-        isRequired: true,
+        isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
       },
     ],
-    expected: { status: 201, success: true, message: 'Form Field created successfully' },
+    expected: {
+      status: 201,
+      success: true,
+      message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
+    },
   },
   {
     name: 'BOOLEAN — basic',
@@ -106,12 +118,18 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
         component: 'BooleanToggle',
         type: FieldType.BOOLEAN,
         label: 'Boolean Field ' + random.integer(5),
-        isRequired: true,
+        isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
       },
     ],
-    expected: { status: 201, success: true, message: 'Form Field created successfully' },
+    expected: {
+      status: 201,
+      success: true,
+      message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
+    },
   },
   {
     name: 'SELECT — basic',
@@ -120,7 +138,7 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
         component: 'SingleSelect',
         type: FieldType.SELECT,
         label: 'Select Field ' + random.integer(5),
-        isRequired: true,
+        isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
         validation: {
@@ -132,6 +150,8 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
       status: 201,
       success: true,
       message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
     },
   },
   {
@@ -141,7 +161,7 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
         component: 'MultiSelect',
         type: FieldType.MULTI_SELECT,
         label: 'Multi Select Field ' + random.integer(5),
-        isRequired: true,
+        isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
         validation: {
@@ -153,6 +173,8 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
       status: 201,
       success: true,
       message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
     },
   },
   {
@@ -162,7 +184,7 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
         component: 'RadioGroup',
         type: FieldType.RADIO,
         label: 'Radio Field ' + random.integer(5),
-        isRequired: true,
+        isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
         validation: {
@@ -174,6 +196,8 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
       status: 201,
       success: true,
       message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
     },
   },
   {
@@ -198,6 +222,8 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
       status: 201,
       success: true,
       message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
     },
   },
   {
@@ -216,6 +242,8 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
       status: 201,
       success: true,
       message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
     },
   },
   {
@@ -225,7 +253,7 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
         component: 'SignaturePad',
         type: FieldType.SIGNATURE,
         label: 'Signature Field ' + random.integer(5),
-        isRequired: true,
+        isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
       },
@@ -234,6 +262,8 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
       status: 201,
       success: true,
       message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
     },
   },
   {
@@ -243,7 +273,7 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
         component: 'FileUpload',
         type: FieldType.FILE,
         label: 'File Field ' + random.integer(5),
-        isRequired: true,
+        isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
         fileConfig: {
@@ -256,6 +286,8 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
       status: 201,
       success: true,
       message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
     },
   },
 
@@ -738,3 +770,28 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
   //   expected: { status: 400, success: false },
   // },
 ];
+
+// export const createFieldTestCases: CreateFieldTestCase[] = [
+//   // ── Success 201 ────────────────────────────────────────────────────────────
+//   // Basic - All Field types
+//   {
+//     name: 'SHORT_TEXT — basic',
+//     payload: async (api, sectionId) => [
+//       {
+//         component: 'TextInput',
+//         type: FieldType.SHORT_TEXT,
+//         label: 'Short Text Field ' + random.integer(5),
+//         isRequired: true,
+//         dataTarget: DataTarget.EAV,
+//         order: await getFieldsNextOrder(api, sectionId),
+//       },
+//     ],
+//     expected: {
+//       status: 201,
+//       success: true,
+//       message: 'Form Field created successfully',
+//       assertCount: true,
+//       validateSchema: true,
+//     },
+//   },
+// ];

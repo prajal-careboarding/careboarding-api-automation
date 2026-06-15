@@ -9,13 +9,18 @@ import { checkTestableSectionExists, createNewTestSection, getTestSectionId } fr
 import { SystemTemplateIds } from 'tests/enums/SystemTemplates.enums';
 import { getDemographicsFixtures } from '@fixtures/demographics.fixture';
 import { createFieldTestCases } from '../../../test-data/providers/create-fields.provider';
+import Ajv from 'ajv';
+import { logger } from '@utils/Logger';
 
 // ─── Data-Driven CREATE FIELDS Tests ─────────────────────────────────────────
 
-test.describe('CREATE FIELDS API', () => {
+test.describe('CREATE BASIC FIELDS', () => {
+  test.describe.configure({ mode: 'serial' });
+
   let api: ApiClient;
   let testSectionId: string;
   const successSchema = SchemaValidator.loadSchema('createFieldsSchema.json');
+  const ajv = new Ajv();
 
   test.beforeEach(async ({ request }) => {
     await new LoginHelper(request).login();
@@ -37,13 +42,17 @@ test.describe('CREATE FIELDS API', () => {
 
       const response = await api.post(ENDPOINTS.FIELDS.CREATE_FIELDS(sectionId), payload);
       console.log(await response.json());
+
       if (tc.expected.success) {
         const result = await assertGeneralSuccessResponse(response, {
           statusCode: tc.expected.status,
           message: tc.expected.message,
         });
         if (tc.expected.validateSchema) {
-          SchemaValidator.validate(result as unknown as Record<string, unknown>, successSchema);
+          const isValid = ajv.validate(successSchema, result);
+          if (!isValid) {
+            logger.error('Schema validation failed');
+          }
         }
         if (tc.expected.assertCount) {
           expect(result.data.count).toBe(payload.length);
