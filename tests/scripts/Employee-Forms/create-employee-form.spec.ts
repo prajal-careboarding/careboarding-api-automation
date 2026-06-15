@@ -1,5 +1,5 @@
 import { Faker, faker } from '@faker-js/faker';
-import { ApiClient } from '@helpers/ApiClient';
+import { ApiClient } from '@helpers/api-client';
 import { test, expect } from '@playwright/test';
 
 test('Create random employee forms', async ({ request }) => {

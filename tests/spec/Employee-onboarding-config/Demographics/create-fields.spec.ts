@@ -1,16 +1,16 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../../helpers/ApiClient';
-import { LoginHelper } from '@helpers/loginHelper';
+import { ApiClient } from '../../../helpers/api-client';
+import { LoginHelper } from '@helpers/login-helper';
 import { ENDPOINTS } from '@api/endpoints/api-endpoints';
-import { assertGeneralSuccessResponse, assertGeneralErrorResponse } from '@helpers/assertionHelper';
-import { SchemaValidator } from '@helpers/SchemaValidator';
-import megaPayload from '../../../test-data/static/createFieldMegaPayload.json';
-import { checkTestableSectionExists, createNewTestSection, getTestSectionId } from '@helpers/sectionHelper';
-import { SystemTemplateIds } from 'tests/enums/SystemTemplates.enums';
+import { assertGeneralSuccessResponse, assertGeneralErrorResponse } from '@helpers/assertion-helper';
+import { SchemaValidator } from '@helpers/schema-validator';
+import megaPayload from '../../../test-data/static/create-field-mega-payload.json';
+import { checkTestableSectionExists, createNewTestSection, getTestSectionId } from '@helpers/section-helper';
+import { SystemTemplateIds } from 'tests/enums/system-templates.enums';
 import { getDemographicsFixtures } from '@fixtures/demographics.fixture';
 import { createFieldTestCases } from '../../../test-data/providers/create-fields.provider';
 import Ajv from 'ajv';
-import { logger } from '@utils/Logger';
+import { logger } from '@utils/logger';
 
 // ─── Data-Driven CREATE FIELDS Tests ─────────────────────────────────────────
 

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../../helpers/ApiClient';
-import { BulkSavePositionTemplatesRequest } from '../../../models/request/Employee-onboarding-config/Employee-position-templates/bulk-save';
+import { ApiClient } from '../../../helpers/api-client';
+import { BulkSavePositionTemplatesRequest } from '../../../models/request/employee-onboarding-config/employee-position-templates/bulk-save';
 
 test.describe('BULK SAVE API', () => {
   let api: ApiClient;

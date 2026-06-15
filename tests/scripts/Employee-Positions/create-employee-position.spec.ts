@@ -1,9 +1,9 @@
 import { ENDPOINTS } from '@api/endpoints/api-endpoints';
 import { Faker, faker } from '@faker-js/faker';
-import { ApiClient } from '@helpers/ApiClient';
-import { LoginHelper } from '@helpers/loginHelper';
+import { ApiClient } from '@helpers/api-client';
+import { LoginHelper } from '@helpers/login-helper';
 import { test, expect } from '@playwright/test';
-import { RandomGenerator } from '@utils/randomGenerator';
+import { RandomGenerator } from '@utils/random-generator';
 
 const random = new RandomGenerator();
 test.describe('[Scripts] CREATE EMPLOYEE POSITIONß', () => {

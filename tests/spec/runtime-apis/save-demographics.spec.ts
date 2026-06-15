@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../helpers/ApiClient';
+import { ApiClient } from '../../helpers/api-client';
 import { SaveDemographicsFirstSaveDraftRequest, SaveDemographicsFollowUpDraftRequest, SaveDemographicsSubmitRequest, SaveDemographicsMissingMinimumSix422Request, SaveDemographicsSlotIndexedKeysDraftRequest, SaveDemographicsLockedFieldMutationCheckRequest, SaveDemographicsSubmitWithRefFields422MissingRequiredRequest } from '../../models/request/runtime-apis/save-demographics';
 
 

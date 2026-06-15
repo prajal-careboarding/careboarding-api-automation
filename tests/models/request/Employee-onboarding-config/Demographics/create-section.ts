@@ -1,4 +1,4 @@
-import { FillerRole } from 'tests/enums/Field.enums';
+import { FillerRole } from 'tests/enums/field.enums';
 
 /**
  * Base request model for the Create Section API.

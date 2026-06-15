@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../../helpers/ApiClient';
-import { CreateSectionResponse } from '../../../models/response/Employee-onboarding-config/Demographics/create-section';
-import { CreateSectionsRequest } from '../../../models/request/Employee-onboarding-config/Demographics/create-section';
-import { SchemaValidator } from '../../../helpers/SchemaValidator';
-import { LoginHelper } from '@helpers/loginHelper';
-import { SystemTemplateIds } from 'tests/enums/SystemTemplates.enums';
+import { ApiClient } from '../../../helpers/api-client';
+import { CreateSectionResponse } from '../../../models/response/employee-onboarding-config/demographics/create-section';
+import { CreateSectionsRequest } from '../../../models/request/employee-onboarding-config/demographics/create-section';
+import { SchemaValidator } from '../../../helpers/schema-validator';
+import { LoginHelper } from '@helpers/login-helper';
+import { SystemTemplateIds } from 'tests/enums/system-templates.enums';
 import { faker } from '@faker-js/faker';
-import { FillerRole } from 'tests/enums/Field.enums';
-import { getNextOrder } from '@helpers/sectionHelper';
-import { assertGeneralErrorResponse, assertGeneralSuccessResponse } from '@helpers/assertionHelper';
+import { FillerRole } from 'tests/enums/field.enums';
+import { getNextOrder } from '@helpers/section-helper';
+import { assertGeneralErrorResponse, assertGeneralSuccessResponse } from '@helpers/assertion-helper';
 import { ENDPOINTS } from '@api/endpoints/api-endpoints';
 
 

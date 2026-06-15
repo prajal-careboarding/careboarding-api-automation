@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { logger } from '../utils/Logger';
+import { logger } from '../utils/logger';
 
 /**
  * Minimal JSON-Schema-style validator.

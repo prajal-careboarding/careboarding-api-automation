@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../helpers/ApiClient';
+import { ApiClient } from '../../helpers/api-client';
 import { ENDPOINTS } from '../../api/endpoints/api-endpoints';
-import { SubmitReferencePayloadBuilder } from '../../models/request/Employee-onboarding-config/reference-runtime-10-9-token-auth/submit-reference';
+import { SubmitReferencePayloadBuilder } from '../../models/request/employee-onboarding-config/reference-runtime-10-9-token-auth/submit-reference';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Submit Reference Answers — POST /onboarding/reference/:token/answers

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../helpers/ApiClient';
+import { ApiClient } from '../../helpers/api-client';
 import { ENDPOINTS } from '../../api/endpoints/api-endpoints';
-import { GetReferenceResponse, ReferenceErrorResponse } from '../../models/response/Employee-onboarding-config/reference-runtime-10-9-token-auth/reference-response';
+import { GetReferenceResponse, ReferenceErrorResponse } from '../../models/response/employee-onboarding-config/reference-runtime-10-9-token-auth/reference-response';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // NOTE: These endpoints authenticate via a URL token, NOT a Bearer JWT.

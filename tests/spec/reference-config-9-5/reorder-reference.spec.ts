@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../helpers/ApiClient';
+import { ApiClient } from '../../helpers/api-client';
 import { ReorderReferenceQuestions204Request } from '../../models/request/reference-config-9-5/reorder-reference';
 
 

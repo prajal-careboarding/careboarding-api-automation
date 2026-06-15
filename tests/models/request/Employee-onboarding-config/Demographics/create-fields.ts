@@ -1,4 +1,4 @@
-import { FieldType, DataTarget } from 'tests/enums/Field.enums';
+import { FieldType, DataTarget } from 'tests/enums/field.enums';
 
 /**
  * Interface representing a single field object to be created within a section.

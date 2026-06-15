@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../../helpers/ApiClient';
+import { ApiClient } from '../../../helpers/api-client';
 
 test.describe('TOGGLE FIELD API', () => {
   let api: ApiClient;

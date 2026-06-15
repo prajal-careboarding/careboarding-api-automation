@@ -1,5 +1,5 @@
-import { GeneralErrorResponse } from '@models/response/GeneralErrorResponse';
-import { GeneralSuccessResponse } from '@models/response/GeneralSuccessResponse';
+import { GeneralErrorResponse } from '@models/response/general-error-response';
+import { GeneralSuccessResponse } from '@models/response/general-success-response';
 import { APIRequest, APIResponse, expect } from '@playwright/test';
 
 /**

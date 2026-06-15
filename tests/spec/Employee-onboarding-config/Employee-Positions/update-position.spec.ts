@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../../helpers/ApiClient';
-import { UpdatePositionRequest } from '../../../models/request/Employee-onboarding-config/Employee-positions/update-position';
+import { ApiClient } from '../../../helpers/api-client';
+import { UpdatePositionRequest } from '../../../models/request/employee-onboarding-config/employee-positions/update-position';
 
 test.describe('UPDATE POSITION API', () => {
   let api: ApiClient;

@@ -1,4 +1,4 @@
-import { FieldType, DataTarget } from 'tests/enums/Field.enums';
+import { FieldType, DataTarget } from 'tests/enums/field.enums';
 
 /**
  * Request model for the Update Field API.

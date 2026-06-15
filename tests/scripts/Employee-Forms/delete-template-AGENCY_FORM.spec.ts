@@ -1,4 +1,4 @@
-import { ApiClient } from '@helpers/ApiClient';
+import { ApiClient } from '@helpers/api-client';
 import { test, expect } from '@playwright/test';
 
 test('Delete all template', async ({ request }) => {

@@ -1,7 +1,7 @@
 import { ENDPOINTS } from '@api/endpoints/api-endpoints';
 import { Faker, faker } from '@faker-js/faker';
-import { ApiClient } from '@helpers/ApiClient';
-import { LoginHelper } from '@helpers/loginHelper';
+import { ApiClient } from '@helpers/api-client';
+import { LoginHelper } from '@helpers/login-helper';
 import { test, expect } from '@playwright/test';
 
 test('Delete employee position', async ({ request }) => {

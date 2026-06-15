@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../helpers/ApiClient';
+import { ApiClient } from '../../helpers/api-client';
 import { UpdateReferenceTemplate204Request, UpdateReferenceTemplateSystemTemplate403Request } from '../../models/request/reference-config-9-5/update-reference-template';
 
 

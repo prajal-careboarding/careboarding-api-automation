@@ -1,6 +1,6 @@
-import { ApiClient } from '@helpers/ApiClient';
-import { getSectionsNextOrder } from '@helpers/sectionHelper';
-import { SystemTemplateIds } from 'tests/enums/SystemTemplates.enums';
+import { ApiClient } from '@helpers/api-client';
+import { getSectionsNextOrder } from '@helpers/section-helper';
+import { SystemTemplateIds } from 'tests/enums/system-templates.enums';
 
 /**
  * Returns an array of fixtures with section name and computed order.

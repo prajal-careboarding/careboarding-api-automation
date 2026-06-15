@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../helpers/ApiClient';
+import { ApiClient } from '../../helpers/api-client';
 import { SaveDocumentRequest, SaveDocumentMissingRequiredFields400Request, SaveDocumentEmptyDocumentsArray400Request, SaveDocumentEXPIRINGTemplateMissingExpiryDate422Request, SaveDocumentMimeTypeNotAllowed422Request, SaveDocumentSizeExceedsMaxSizeMb422Request } from '../../models/request/runtime-apis/save-document';
 
 

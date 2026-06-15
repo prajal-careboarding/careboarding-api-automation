@@ -2,10 +2,10 @@
  * Data provider for CREATE FIELDS API tests.
  * Each entry = one test: a name, a payload (or factory), and the expected outcome.
  */
-import { DataTarget, FieldType, RuleAction, VisibilityOperator } from 'tests/enums/Field.enums';
-import { ApiClient } from '@helpers/ApiClient';
-import { getFieldsNextOrder } from '@helpers/sectionHelper';
-import { RandomGenerator } from '@utils/randomGenerator';
+import { DataTarget, FieldType, RuleAction, VisibilityOperator } from 'tests/enums/field.enums';
+import { ApiClient } from '@helpers/api-client';
+import { getFieldsNextOrder } from '@helpers/section-helper';
+import { RandomGenerator } from '@utils/random-generator';
 
 const random = new RandomGenerator();
 

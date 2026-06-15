@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../../helpers/ApiClient';
-import { ReorderSectionsRequest } from '../../../models/request/Employee-onboarding-config/Demographics/reorder-sections';
+import { ApiClient } from '../../../helpers/api-client';
+import { ReorderSectionsRequest } from '../../../models/request/employee-onboarding-config/demographics/reorder-sections';
 
 test.describe('REORDER SECTIONS API', () => {
   let api: ApiClient;

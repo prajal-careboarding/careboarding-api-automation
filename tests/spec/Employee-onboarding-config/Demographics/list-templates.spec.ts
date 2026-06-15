@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../../helpers/ApiClient';
-import { LoginHelper } from '@helpers/loginHelper';
+import { ApiClient } from '../../../helpers/api-client';
+import { LoginHelper } from '@helpers/login-helper';
 
 test.describe('LIST TEMPLATES API', () => {
   let api: ApiClient;

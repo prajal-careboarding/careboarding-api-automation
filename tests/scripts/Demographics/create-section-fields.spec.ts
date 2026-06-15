@@ -1,6 +1,6 @@
-import { ApiClient } from '@helpers/ApiClient';
-import { LoginHelper } from '@helpers/loginHelper';
-import { DataHelper } from '@helpers/DataHelper';
+import { ApiClient } from '@helpers/api-client';
+import { LoginHelper } from '@helpers/login-helper';
+import { DataHelper } from '@helpers/data-helper';
 import { test, expect } from '@playwright/test';
 import { ENDPOINTS } from '@api/endpoints/api-endpoints';
 

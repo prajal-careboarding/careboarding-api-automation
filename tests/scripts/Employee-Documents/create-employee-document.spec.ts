@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
-import { ApiClient } from '@helpers/ApiClient';
+import { ApiClient } from '@helpers/api-client';
 import { test, expect } from '@playwright/test';
-import { OnboardingTemplateType } from 'tests/enums/OnboardingTemplate.enums.ts';
-import { SystemPositionIds } from 'tests/enums/SystemPositions.enums';
+import { OnboardingTemplateType } from 'tests/enums/onboarding-template.enums.ts';
+import { SystemPositionIds } from 'tests/enums/system-positions.enums';
 import {
   SystemTemplateCategoryIds,
   SystemTemplateCategoryNames,
-} from 'tests/enums/SystemTemplateCategories.enums';
+} from 'tests/enums/system-template-categories.enums';
 
 const createPayload = {
   name: '[Automation] Test Document' + ' ' + faker.number.int({ min: 10000, max: 99999 }),

@@ -1,5 +1,5 @@
 import { APIRequestContext, expect } from '@playwright/test';
-import { ApiClient } from './ApiClient';
+import { ApiClient } from './api-client';
 import { ENDPOINTS } from '@api/endpoints/api-endpoints';
 
 /**

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ApiClient } from '../../helpers/ApiClient';
+import { ApiClient } from '../../helpers/api-client';
 import { CreateReferenceQuestion201Request, CreateReferenceQuestionInvalidKeyFormat400Request, CreateReferenceQuestionDuplicateKey409Request, CreateReferenceQuestionSELECTWithoutOptions400Request, CreateReferenceQuestionRejectedTypeFILE400Request } from '../../models/request/reference-config-9-5/create-reference-question';
 
 

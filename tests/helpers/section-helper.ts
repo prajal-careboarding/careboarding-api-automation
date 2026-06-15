@@ -1,6 +1,6 @@
 import { ENDPOINTS } from '@api/endpoints/api-endpoints';
-import { ApiClient } from './ApiClient';
-import { CreateSectionsRequest } from '@models/request/Employee-onboarding-config/Demographics/create-section';
+import { ApiClient } from './api-client';
+import { CreateSectionsRequest } from '@models/request/employee-onboarding-config/demographics/create-section';
 import { request } from 'node:http';
 import { APIRequestContext } from '@playwright/test';
 
