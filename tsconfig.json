@@ -18,6 +18,6 @@
       "@utils/*": ["tests/utils/*"]
     }
   },
-  "include": ["tests/**/*", "config/**/*"],
+  "include": ["tests/**/*", "config/**/*", "scripts/generate.js", "scripts/generateMSMF.js"],
   "exclude": ["node_modules", "dist"]
 }

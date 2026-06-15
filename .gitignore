@@ -65,6 +65,8 @@ playwright/.auth/
 html-report/
 report/
 reports/
+scripts/
+temp-data/
 
 # Generated files
 *.tmp
