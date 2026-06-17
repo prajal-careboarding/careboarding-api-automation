@@ -19,7 +19,7 @@ test.describe('CREATE BASIC FIELDS', () => {
 
   let api: ApiClient;
   let testSectionId: string;
-  const successSchema = SchemaValidator.loadSchema('createFieldsSchema.json');
+  const successSchema = SchemaValidator.loadSchema('create-fields.schema.json');
   const ajv = new Ajv();
 
   test.beforeEach(async ({ request }) => {
@@ -51,7 +51,7 @@ test.describe('CREATE BASIC FIELDS', () => {
         if (tc.expected.validateSchema) {
           const isValid = ajv.validate(successSchema, result);
           if (!isValid) {
-            logger.error('Schema validation failed');
+            logger.error(`Schema validation failed: ${ajv.errorsText()}`);
           }
         }
         if (tc.expected.assertCount) {

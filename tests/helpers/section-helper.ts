@@ -66,7 +66,7 @@ export async function deleteSection(request: APIRequestContext, sectionId: strin
  */
 export async function checkTestableSectionExists(request: APIRequestContext): Promise<Boolean> {
   const api = new ApiClient(request);
-  const response = await api.get(ENDPOINTS.TEMPLATES.BY_TYPE('DEMOGRAPHICS'));
+  const response = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE('DEMOGRAPHICS'));
   const result = await response.json();
 
   if (
@@ -89,7 +89,7 @@ export async function checkTestableSectionExists(request: APIRequestContext): Pr
 
 export async function getTestSectionId(request: APIRequestContext): Promise<string> {
   const api = new ApiClient(request); // 'request' usually injected in Playwright test context
-  const response = await api.get(ENDPOINTS.TEMPLATES.BY_TYPE('DEMOGRAPHICS'));
+  const response = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE('DEMOGRAPHICS'));
   const result = await response.json();
 
   if (

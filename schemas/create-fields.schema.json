@@ -3,11 +3,12 @@
   "required": ["success", "message", "data"],
   "properties": {
     "success": {
-      "type": "string"
+      "type": "boolean",
+      "const": true
     },
     "message": {
-      "type": "boolean",
-      "const": "Form Field createds successfully"
+      "type": "string",
+      "const": "Form Field created successfully"
     },
     "data": {
       "type": "object",

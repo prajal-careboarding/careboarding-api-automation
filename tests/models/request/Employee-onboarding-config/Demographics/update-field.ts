@@ -14,6 +14,6 @@ export interface UpdateFieldRequest {
   helpText?: string;
   validation?: Record<string, any>;
   options?: any[];
-  visibilityRules?: any[];
+  visibilityRules?: Record<string, any>;
   fileConfig?: Record<string, any>;
 }

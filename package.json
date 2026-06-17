@@ -6,6 +6,7 @@
   "scripts": {
     "test": "npx playwright test",
     "test:all": "npx playwright test",
+    "test:check-all-field-types":"npx playwright test -g \"CREATE BASIC FIELDS\"",
     "test:smoke": "npx playwright test \"tests/spec/smoke\"",
     "test:regression": "npx playwright test \"tests/spec/regression\"",
     "test:performance": "npx playwright test \"tests/spec/performance\"",
@@ -38,6 +39,7 @@
   "dependencies": {
     "@faker-js/faker": "^10.4.0",
     "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
     "dotenv": "^17.4.2",
     "prettier": "^3.8.3"
   }

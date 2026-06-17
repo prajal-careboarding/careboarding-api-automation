@@ -26,16 +26,17 @@ export const ENDPOINTS = {
     REQUIREMENTS_BY_ID: (id: string) => `/onboarding/config/template-categories/${id}/requirements`,
   },
   EMPLOYEE_POSITIONS: {
+    BASE: '/employee-positions',
     CREATE_EMPLOYEE_POSITION: '/employee-positions',
     GET_EMPLOYEE_POSITIONS: '/employee-positions',
-    BY_ID: (id: string) => `/employee-positions/${id}`,
+    GET_EMPLOYEE_POSITIONS_BY_ID: (id: string) => `/employee-positions/${id}`,
   },
   TEMPLATES: {
     BASE: '/onboarding/config/templates',
-    BY_ID: (id: string) => `/onboarding/config/templates/${id}`,
-    BY_CATEGORY: (categoryId: string) =>
+    GET_TEMPLATE_BY_ID: (id: string) => `/onboarding/config/templates/${id}`,
+    GET_TEMPLATE_BY_CATEGORY: (categoryId: string) =>
       `/onboarding/config/template-categories/${categoryId}/templates`,
-    BY_TYPE: (type: string) => `/onboarding/config/templates?type=${type}`,
+    GET_TEMPLATE_BY_TYPE: (type: string) => `/onboarding/config/templates?type=${type}`,
     SECTIONS: '/onboarding/config/templates/sections',
     SECTIONS_REORDER: '/onboarding/config/templates/sections/reorder',
     SECTIONS_BY_ID: (templateId: string) => `/onboarding/config/templates/${templateId}/sections`,
@@ -51,8 +52,7 @@ export const ENDPOINTS = {
     FIELDS_REORDER: '/onboarding/config/sections/fields/reorder',
     FIELDS_BY_SECTION_ID: (sectionId: string) => `/onboarding/config/sections/${sectionId}/fields`,
     VISIBILITY: '/onboarding/config/sections/visibility',
-    SECTIONS_BY_TEMPLATE_ID: (templateId: string) =>
-      `/onboarding/config/templates/${templateId}/sections`,
+    SECTIONS_BY_TEMPLATE_ID: (templateId: string) => `/onboarding/config/templates/${templateId}/sections`,
   },
   FIELDS: {
     CREATE_FIELDS: (sectionId: string) => `/onboarding/config/sections/${sectionId}/fields`,
@@ -71,8 +71,7 @@ export const ENDPOINTS = {
     PACKAGES: '/onboarding/packages',
     PACKAGE_BY_ID: (id: string) => `/onboarding/packages/${id}`,
     TASKS: (employeeId: string) => `/onboarding/employees/${employeeId}/tasks`,
-    TASK_BY_ID: (employeeId: string, taskId: string) =>
-      `/onboarding/employees/${employeeId}/tasks/${taskId}`,
+    TASK_BY_ID: (employeeId: string, taskId: string) => `/onboarding/employees/${employeeId}/tasks/${taskId}`,
     DASHBOARD: '/onboarding/dashboard',
     DEMOGRAPHICS: '/onboarding/demographics',
     DEMOGRAPHICS_SCHEMA: '/onboarding/demographics/schema',
@@ -137,8 +136,7 @@ export const ENDPOINTS = {
       ENTITY_DIFF: (id: string) => `/identity/v2/approvals/entities/${id}/diff`,
     },
     POINT_OF_CONTACT: {
-      BASE: (organizationId: string) =>
-        `/identity/v2/organizations/${organizationId}/point-of-contact`,
+      BASE: (organizationId: string) => `/identity/v2/organizations/${organizationId}/point-of-contact`,
     },
     SERVICE_LINE_ALIASES: {
       BASE: '/identity/v2/service-line-aliases',

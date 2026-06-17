@@ -23,6 +23,9 @@
     },
     "validationErrors": {
       "type": "array"
+    },
+    "service": {
+      "type": "string"
     }
   }
 }

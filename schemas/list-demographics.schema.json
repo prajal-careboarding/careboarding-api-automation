@@ -1,0 +1,175 @@
+{
+  "type": "object",
+  "required": ["success", "message", "data"],
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "message": {
+      "type": "string"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/template"
+      }
+    }
+  },
+  "definitions": {
+    "template": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "type",
+        "version",
+        "status",
+        "isSystem",
+        "sections"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "entityId": { "type": ["string", "null"] },
+        "organizationId": { "type": ["string", "null"] },
+        "branchId": { "type": ["string", "null"] },
+        "name": { "type": "string" },
+        "description": { "type": ["string", "null"] },
+        "stateCode": { "type": ["string", "null"] },
+        "type": { "type": "string" },
+        "version": { "type": "number" },
+        "status": { "type": "string" },
+        "isSystem": { "type": "boolean" },
+        "categoryId": { "type": ["string", "null"] },
+        "categoryName": { "type": ["string", "null"] },
+        "policyType": { "type": ["string", "null"] },
+        "requiresAcknowledgement": {
+          "type": ["boolean", "null"]
+        },
+        "config": {},
+        "effectiveFrom": { "type": ["string", "null"] },
+        "effectiveUntil": { "type": ["string", "null"] },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/section"
+          }
+        },
+        "signees": {
+          "type": "array"
+        },
+        "positions": {
+          "type": "array"
+        },
+        "positionTemplates": {
+          "type": "array"
+        },
+        "conditionalRules": {
+          "type": "array"
+        },
+        "category": {
+          "type": ["object", "null"]
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "deletedAt": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "required": [
+        "id",
+        "templateId",
+        "name",
+        "order",
+        "fields"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "templateId": { "type": "string" },
+        "organizationId": { "type": ["string", "null"] },
+        "name": { "type": "string" },
+        "description": { "type": ["string", "null"] },
+        "order": { "type": "number" },
+        "isSystem": { "type": "boolean" },
+        "isRepeatable": { "type": "boolean" },
+        "isVisible": { "type": "boolean" },
+        "requiredRole": { "type": "string" },
+        "isRehireOnly": { "type": "boolean" },
+        "visibilityRules": {},
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/field"
+          }
+        }
+      }
+    },
+    "field": {
+      "type": "object",
+      "required": [
+        "id",
+        "sectionId",
+        "key",
+        "component",
+        "type",
+        "label",
+        "order"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "sectionId": { "type": "string" },
+        "key": { "type": "string" },
+        "component": { "type": "string" },
+        "type": { "type": "string" },
+        "dataTarget": { "type": "string" },
+        "label": { "type": "string" },
+        "placeholder": {
+          "type": ["string", "null"]
+        },
+        "helpText": {
+          "type": ["string", "null"]
+        },
+        "order": {
+          "type": "number"
+        },
+        "isSystem": {
+          "type": "boolean"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "isRequired": {
+          "type": "boolean"
+        },
+        "isMinimumRequired": {
+          "type": "boolean"
+        },
+        "isVisible": {
+          "type": "boolean"
+        },
+        "containsPhi": {
+          "type": "boolean"
+        },
+        "groupKey": {
+          "type": ["string", "null"]
+        },
+        "groupLabel": {
+          "type": ["string", "null"]
+        },
+        "validation": {},
+        "regexPattern": {
+          "type": ["string", "null"]
+        },
+        "visibilityRules": {},
+        "config": {},
+        "fileConfig": {}
+      }
+    }
+  }
+}

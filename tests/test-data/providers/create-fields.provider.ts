@@ -292,121 +292,127 @@ export const createFieldTestCases: CreateFieldTestCase[] = [
   },
 
   // Fields with attributes
-  // {
-  //   name: 'SHORT_TEXT — with helpText',
-  //   payload: async (api, sectionId) => [
-  //     {
-  //       component: 'TextInput',
-  //       type: FieldType.SHORT_TEXT,
-  //       label: 'Help Text Field ' + random.integer(5),
-  //       isRequired: false,
-  //       dataTarget: DataTarget.EAV,
-  //       order: await getFieldsNextOrder(api, sectionId),
-  //       helpText: 'This is a help text instructions',
-  //     },
-  //   ],
-  //   expected: {
-  //     status: 201,
-  //     success: true,
-  //     message: 'Form Field created successfully',
-  //     assertCount: true,
-  //     validateSchema: true,
-  //   },
-  // },
-  // {
-  //   name: 'SHORT_TEXT — with regex validation',
-  //   payload: async (api, sectionId) => [
-  //     {
-  //       component: 'TextInput',
-  //       type: FieldType.SHORT_TEXT,
-  //       label: 'Regex Text Field ' + random.integer(5),
-  //       isRequired: true,
-  //       dataTarget: DataTarget.EAV,
-  //       order: await getFieldsNextOrder(api, sectionId),
-  //       validation: { regexPattern: '^[A-Z]{3}$' },
-  //     },
-  //   ],
-  //   expected: {
-  //     status: 201,
-  //     success: true,
-  //     message: 'Form Field created successfully',
-  //   },
-  // },
-  // {
-  //   name: 'SHORT_TEXT — with min/max length',
-  //   payload: async (api, sectionId) => [
-  //     {
-  //       component: 'TextInput',
-  //       type: FieldType.SHORT_TEXT,
-  //       label: 'Min Max Text Field ' + random.integer(5),
-  //       isRequired: true,
-  //       dataTarget: DataTarget.EAV,
-  //       order: await getFieldsNextOrder(api, sectionId),
-  //       validation: { minLength: 5, maxLength: 10 },
-  //     },
-  //   ],
-  //   expected: {
-  //     status: 201,
-  //     success: true,
-  //     message: 'Form Field created successfully',
-  //   },
-  // },
-  // {
-  //   name: 'SELECT — with options',
-  //   payload: async (api, sectionId) => [
-  //     {
-  //       component: 'SingleSelect',
-  //       type: FieldType.SELECT,
-  //       label: 'Select Field ' + random.integer(5),
-  //       isRequired: true,
-  //       dataTarget: DataTarget.EAV,
-  //       order: await getFieldsNextOrder(api, sectionId),
-  //       validation: {
-  //         options: [
-  //           { value: 'option1', label: 'Option 1' },
-  //           { value: 'option2', label: 'Option 2' },
-  //         ],
-  //       },
-  //     },
-  //   ],
-  //   expected: {
-  //     status: 201,
-  //     success: true,
-  //     message: 'Form Field created successfully',
-  //   },
-  // },
-  // {
-  //   name: 'SELECT — with visibilityRules (conditional show)',
-  //   payload: async (api, sectionId) => [
-  //     {
-  //       component: 'SingleSelect',
-  //       type: FieldType.SELECT,
-  //       label: 'Conditional Select Field ' + random.integer(5),
-  //       isRequired: true,
-  //       dataTarget: DataTarget.EAV,
-  //       order: await getFieldsNextOrder(api, sectionId),
-  //       validation: {
-  //         options: [
-  //           { value: 'yes', label: 'Yes' },
-  //           { value: 'no', label: 'No' },
-  //         ],
-  //       },
-  //       visibilityRules: [
-  //         {
-  //           targetFieldKey: 'has_vehicle',
-  //           operator: VisibilityOperator.EQ,
-  //           value: 'yes',
-  //           action: RuleAction.SHOW,
-  //         },
-  //       ],
-  //     },
-  //   ],
-  //   expected: {
-  //     status: 201,
-  //     success: true,
-  //     message: 'Form Field created successfully',
-  //   },
-  // },
+  {
+    name: 'SHORT_TEXT — with helpText',
+    payload: async (api, sectionId) => [
+      {
+        component: 'TextInput',
+        type: FieldType.SHORT_TEXT,
+        label: 'Text Field With Help Text ' + random.integer(5),
+        isRequired: false,
+        dataTarget: DataTarget.EAV,
+        order: await getFieldsNextOrder(api, sectionId),
+        helpText: 'This is a help text instructions',
+      },
+    ],
+    expected: {
+      status: 201,
+      success: true,
+      message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
+    },
+  },
+  {
+    name: 'SHORT_TEXT — with regex validation',
+    payload: async (api, sectionId) => [
+      {
+        component: 'TextInput',
+        type: FieldType.SHORT_TEXT,
+        label: 'SHORT_TEXT With Regex Pattern ' + random.integer(5),
+        isRequired: true,
+        dataTarget: DataTarget.EAV,
+        order: await getFieldsNextOrder(api, sectionId),
+        validation: { regexPattern: '^[A-Z]{3}$' },
+      },
+    ],
+    expected: {
+      status: 201,
+      success: true,
+      message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
+    },
+  },
+  {
+    name: 'SHORT_TEXT — with min/max length',
+    payload: async (api, sectionId) => [
+      {
+        component: 'TextInput',
+        type: FieldType.SHORT_TEXT,
+        label: 'SHORT_TEXT with Min Max Text Validation ' + random.integer(5),
+        isRequired: true,
+        dataTarget: DataTarget.EAV,
+        order: await getFieldsNextOrder(api, sectionId),
+        validation: { minLength: 5, maxLength: 10 },
+      },
+    ],
+    expected: {
+      status: 201,
+      success: true,
+      message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
+    },
+  },
+  {
+    name: 'SELECT — with options',
+    payload: async (api, sectionId) => [
+      {
+        component: 'SingleSelect',
+        type: FieldType.SELECT,
+        label: 'Select Field ' + random.integer(5),
+        isRequired: true,
+        dataTarget: DataTarget.EAV,
+        order: await getFieldsNextOrder(api, sectionId),
+        validation: {
+          options: [
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' },
+          ],
+        },
+      },
+    ],
+    expected: {
+      status: 201,
+      success: true,
+      message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
+    },
+  },
+  {
+    name: 'SELECT — with visibilityRules (conditional show)',
+    payload: async (api, sectionId) => [
+      {
+        component: 'SingleSelect',
+        type: FieldType.SELECT,
+        label: 'Conditional Select Field ' + random.integer(5),
+        isRequired: true,
+        dataTarget: DataTarget.EAV,
+        order: await getFieldsNextOrder(api, sectionId),
+        validation: {
+          options: [
+            { value: 'yes', label: 'Yes' },
+            { value: 'no', label: 'No' },
+          ],
+        },
+        visibilityRules: {
+          targetFieldKey: 'has_vehicle',
+          operator: VisibilityOperator.EQ,
+          value: 'yes',
+          action: RuleAction.SHOW,
+        },
+      },
+    ],
+    expected: {
+      status: 201,
+      success: true,
+      message: 'Form Field created successfully',
+      assertCount: true,
+      validateSchema: true,
+    },
+  },
   // {
   //   name: 'DATE — with min/max date',
   //   payload: async (api, sectionId) => [
