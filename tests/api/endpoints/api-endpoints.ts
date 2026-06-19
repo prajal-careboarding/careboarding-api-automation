@@ -56,8 +56,8 @@ export const ENDPOINTS = {
   },
   FIELDS: {
     CREATE_FIELDS: (sectionId: string) => `/onboarding/config/sections/${sectionId}/fields`,
-    BY_ID: (id: string) => `/onboarding/config/fields/${id}`,
-    VISIBILITY: '/onboarding/config/fields/visibility',
+    DELETE_FIELDS: (fieldId: string) => `/onboarding/config/fields/${fieldId}`,
+    TOGGLE_VISIBILITY: (fieldId: string) => `/onboarding/config/fields/${fieldId}/visibility`,
   },
   EMPLOYEES: {
     BASE: '/employees',

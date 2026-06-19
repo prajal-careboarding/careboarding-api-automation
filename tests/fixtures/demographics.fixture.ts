@@ -1,5 +1,6 @@
 import { ApiClient } from '@helpers/api-client';
 import { getSectionsNextOrder } from '@helpers/section-helper';
+import { APIRequest, APIRequestContext } from '@playwright/test';
 import { SystemTemplateIds } from 'tests/enums/system-templates.enums';
 
 /**
@@ -12,4 +13,8 @@ export async function getDemographicsFixtures(request: any) {
   const order = await getSectionsNextOrder(api, demographicsTemplateId);
 
   return [{ name: 'QA_TEST_SECTION', order }];
+}
+
+export async function getFieldsFixtures(request: APIRequest) {
+  const api = new ApiClient(request);
 }

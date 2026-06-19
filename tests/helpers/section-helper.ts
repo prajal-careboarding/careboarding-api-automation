@@ -43,7 +43,10 @@ export async function createNewTestSection(
   templateType?: string
 ): Promise<string> {
   const api = new ApiClient(request); // 'request' usually injected in Playwright test context
-  const createSection = await api.post(ENDPOINTS.SECTIONS.SECTIONS_BY_TEMPLATE_ID(templateId), payload);
+  const createSection = await api.post(
+    ENDPOINTS.SECTIONS.SECTIONS_BY_TEMPLATE_ID(templateId),
+    payload
+  );
   const createSectionRes = await createSection.json();
   return createSectionRes.data.id;
 }
