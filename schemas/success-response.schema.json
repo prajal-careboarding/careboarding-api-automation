@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generic Success Response",
+  "type": "object",
+  "required": ["success", "message", "data"],
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "const": true
+    },
+    "message": {
+      "type": "string"
+    },
+    "data": {}
+  },
+  "additionalProperties": false
+}

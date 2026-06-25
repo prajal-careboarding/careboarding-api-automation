@@ -15,6 +15,7 @@ test.describe('LIST TEMPLATES API', () => {
   let ajv = new Ajv();
   addFormats(ajv);
   let demographicsSchema = SchemaValidator.loadSchema('list-demographics.schema.json');
+  let successSchema = SchemaValidator.loadSchema('success-response.schema.json');
 
   test.beforeEach(async ({ request }) => {
     const loginHelper = new LoginHelper(request);
@@ -25,7 +26,6 @@ test.describe('LIST TEMPLATES API', () => {
   test('List Templates DEMOGRAPHICS - Check Schema', async () => {
     const response = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE('DEMOGRAPHICS'));
     const data = await response.json();
-    console.dir(data, { depth: null });
     const isValid = ajv.validate(demographicsSchema, data);
     if (!isValid) {
       console.log(ajv.errorsText());
@@ -37,22 +37,24 @@ test.describe('LIST TEMPLATES API', () => {
     const response = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE('DEMOGRAPHICS'));
     const data = await response.json();
 
-    // Validate schema
-    const isValid = ajv.validate(demographicsSchema, data);
-    if (!isValid) {
+    // Validate overall response structure
+    const isSuccessResponseValid = ajv.validate(successSchema, data);
+    if (!isSuccessResponseValid) {
       console.log(ajv.errorsText());
     }
-    expect(isValid).toBeTruthy();
+    expect(isSuccessResponseValid).toBeTruthy();
+
+    // Validate demographics schema
+    const isDemographicsResponseValid = ajv.validate(demographicsSchema, data);
+    if (!isDemographicsResponseValid) {
+      console.log(ajv.errorsText());
+    }
+    expect(isDemographicsResponseValid).toBeTruthy();
 
     // Load static seeded template data
     const seededData = DataHelper.loadStaticData<{ success: boolean; message: string; data: any[] }>(
       'get-template-data-seeded.json'
     );
-
-    // Validate overall response structure
-    expect(data.success).toBe(seededData.success);
-    expect(data.message).toBe(seededData.message);
-    expect(data.data).toBeInstanceOf(Array);
 
     const actualTemplate = data.data.find((t: any) => t.type === 'DEMOGRAPHICS');
     const expectedTemplate = seededData.data.find((t: any) => t.type === 'DEMOGRAPHICS');

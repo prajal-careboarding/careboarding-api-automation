@@ -12,7 +12,7 @@ test.describe('CREATE TEMPLATE API', () => {
   test('Create Template', async () => {
     // URL: /onboarding/config/templates
     const payload: CreateTemplateRequest = {}; // TODO: Populate payload
-    const response = await api.post('/onboarding/config/templates', payload);
+    const response = await api.post();
     expect(response.ok()).toBeTruthy();
   });
 });
