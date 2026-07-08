@@ -1,5 +1,5 @@
 import { RandomGenerator } from '@utils/random-generator';
-import { CreateTemplateRequest } from '../interfaces/create-template-request';
+import { CreateTemplateRequest } from '../../models/request/employee-onboarding-config/templates/create-template';
 
 const random = new RandomGenerator();
 const randomNumber = random.integer(5);

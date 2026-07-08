@@ -10,7 +10,9 @@ export type TemplateType =
   | 'DOCUMENT_REQUIREMENT'
   | 'AGENCY_FORM'
   | 'GOVERNMENT_FORM'
-  | 'ONBOARDING_QUESTION';
+  | 'ONBOARDING_QUESTION'
+  | 'DEFAULT_FORM'
+  | 'REFERENCE';
 
 /**
  * 1. ONE SOURCE-OF-TRUTH INTERFACE
@@ -37,7 +39,9 @@ export interface CreateTemplateRequest {
  *
  * @param overrides - Pass an object here to overwrite any default fields.
  */
-export function buildCreateTemplatePayload(overrides?: Partial<CreateTemplateRequest>): CreateTemplateRequest {
+export function buildCreateTemplatePayload(
+  overrides?: Partial<CreateTemplateRequest>
+): CreateTemplateRequest {
   return {
     name: `Automation Template ${faker.string.alphanumeric(8)}`,
     type: 'POLICY', // Default valid type

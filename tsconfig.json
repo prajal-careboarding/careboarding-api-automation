@@ -15,7 +15,8 @@
       "@models/*": ["tests/models/*"],
       "@helpers/*": ["tests/helpers/*"],
       "@fixtures/*": ["tests/fixtures/*"],
-      "@utils/*": ["tests/utils/*"]
+      "@utils/*": ["tests/utils/*"],
+      "@config/*": ["tests/config/*"]
     }
   },
   "include": ["tests/**/*", "config/**/*", "scripts/generate.js", "scripts/generateMSMF.js"],

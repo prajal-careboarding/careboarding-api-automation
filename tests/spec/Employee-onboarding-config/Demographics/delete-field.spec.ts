@@ -14,8 +14,10 @@ import { createNewTestField } from '@helpers/field-helper';
 import { DataTarget, FieldType } from 'tests/enums/field.enums';
 import { RandomGenerator } from '@utils/random-generator';
 
+// Valid and running properly //
 test.describe('DELETE FIELD API', () => {
-  // test.describe.configure({ mode: 'serial' });
+  test.describe.configure({ mode: 'serial' }); // This configuration is required because in before each we are creating a field and deleting it in the test, if we don't configure it to serial mode, it will run the tests in parallel and we will get an error because the field will be deleted before the test runs
+
   let api: ApiClient;
   let testSectionId: string;
   let deleteableFieldId: string;

@@ -8,7 +8,10 @@ import { SystemTemplateIds } from 'tests/enums/system-templates.enums';
 import { faker } from '@faker-js/faker';
 import { FillerRole } from 'tests/enums/field.enums';
 import { getSectionsNextOrder } from '@helpers/section-helper';
-import { assertGeneralErrorResponse, assertGeneralSuccessResponse } from '@helpers/assertion-helper';
+import {
+  assertGeneralErrorResponse,
+  assertGeneralSuccessResponse,
+} from '@helpers/assertion-helper';
 import { ENDPOINTS } from '@api/endpoints/api-endpoints';
 import Ajv from 'ajv';
 
@@ -68,7 +71,9 @@ test.describe('CREATE SECTION API', () => {
         name: '[Automation] EMPLOYER - ' + faker.lorem.words(2),
         description: faker.lorem.sentence(),
         order:
-          (await getSectionsNextOrder(api, demographicsTemplateId)) + Math.floor(Math.random() * 1000) + 1,
+          (await getSectionsNextOrder(api, demographicsTemplateId)) +
+          Math.floor(Math.random() * 1000) +
+          1,
         requiredRole: FillerRole.EMPLOYER,
         isRepeatable: false,
         isRehireOnly: false,
@@ -99,7 +104,9 @@ test.describe('CREATE SECTION API', () => {
         name: '[Automation] Inline - ' + faker.lorem.words(2),
         description: faker.lorem.sentence(),
         order:
-          (await getSectionsNextOrder(api, demographicsTemplateId)) + Math.floor(Math.random() * 1000) + 1,
+          (await getSectionsNextOrder(api, demographicsTemplateId)) +
+          Math.floor(Math.random() * 1000) +
+          1,
         requiredRole: FillerRole.ANY,
         isRepeatable: false,
         isRehireOnly: false,
@@ -128,7 +135,9 @@ test.describe('CREATE SECTION API', () => {
         name: '[Automation] PHI - ' + faker.lorem.words(2),
         description: faker.lorem.sentence(),
         order:
-          (await getSectionsNextOrder(api, demographicsTemplateId)) + Math.floor(Math.random() * 1000) + 1,
+          (await getSectionsNextOrder(api, demographicsTemplateId)) +
+          Math.floor(Math.random() * 1000) +
+          1,
         requiredRole: FillerRole.EMPLOYEE,
         isRepeatable: false,
         isRehireOnly: true,
@@ -156,7 +165,9 @@ test.describe('CREATE SECTION API', () => {
         name: '[Automation] Full - ' + faker.lorem.words(2),
         description: faker.lorem.sentence(),
         order:
-          (await getSectionsNextOrder(api, demographicsTemplateId)) + Math.floor(Math.random() * 1000) + 1,
+          (await getSectionsNextOrder(api, demographicsTemplateId)) +
+          Math.floor(Math.random() * 1000) +
+          1,
         requiredRole: FillerRole.ANY,
         isRepeatable: false,
         isRehireOnly: false,
@@ -288,30 +299,43 @@ test.describe('CREATE SECTION API', () => {
     const sectionName = '[Automation] Dup Name - ' + faker.lorem.words(2);
 
     // First creation — should succeed
-    const firstResponse = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, [
+    const firstResponse = await api.post(
+      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
+      [
+        {
+          name: sectionName,
+          description: '',
+          order:
+            (await getSectionsNextOrder(api, demographicsTemplateId)) +
+            Math.floor(Math.random() * 1000) +
+            1,
+          requiredRole: FillerRole.ANY,
+        },
+      ]
+    );
+    const firstResult = await assertGeneralSuccessResponse<CreateSectionResponse['data']>(
+      firstResponse,
       {
-        name: sectionName,
-        description: '',
-        order:
-          (await getSectionsNextOrder(api, demographicsTemplateId)) + Math.floor(Math.random() * 1000) + 1,
-        requiredRole: FillerRole.ANY,
-      },
-    ]);
-    const firstResult = await assertGeneralSuccessResponse<CreateSectionResponse['data']>(firstResponse, {
-      statusCode: 201,
-    });
+        statusCode: 201,
+      }
+    );
     SchemaValidator.validate(firstResult as unknown as Record<string, unknown>, successSchema);
 
     // Second creation with the same name — should fail
-    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, [
-      {
-        name: sectionName,
-        description: '',
-        order:
-          (await getSectionsNextOrder(api, demographicsTemplateId)) + Math.floor(Math.random() * 1000) + 1000,
-        requiredRole: FillerRole.ANY,
-      },
-    ]);
+    const response = await api.post(
+      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
+      [
+        {
+          name: sectionName,
+          description: '',
+          order:
+            (await getSectionsNextOrder(api, demographicsTemplateId)) +
+            Math.floor(Math.random() * 1000) +
+            1000,
+          requiredRole: FillerRole.ANY,
+        },
+      ]
+    );
 
     const result = await assertGeneralErrorResponse(response, { statusCode: 409 });
     SchemaValidator.validate(result as unknown as Record<string, unknown>, errorSchema);
@@ -319,31 +343,42 @@ test.describe('CREATE SECTION API', () => {
 
   test('Create Section Duplicate Order - 400', async () => {
     const fixedOrder =
-      (await getSectionsNextOrder(api, demographicsTemplateId)) + Math.floor(Math.random() * 1000) + 500;
+      (await getSectionsNextOrder(api, demographicsTemplateId)) +
+      Math.floor(Math.random() * 1000) +
+      500;
 
     // First creation with the order
-    const firstResponse = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, [
+    const firstResponse = await api.post(
+      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
+      [
+        {
+          name: '[Automation] Dup Order A - ' + faker.lorem.words(2),
+          description: '',
+          order: fixedOrder,
+          requiredRole: FillerRole.ANY,
+        },
+      ]
+    );
+    const firstResult = await assertGeneralSuccessResponse<CreateSectionResponse['data']>(
+      firstResponse,
       {
-        name: '[Automation] Dup Order A - ' + faker.lorem.words(2),
-        description: '',
-        order: fixedOrder,
-        requiredRole: FillerRole.ANY,
-      },
-    ]);
-    const firstResult = await assertGeneralSuccessResponse<CreateSectionResponse['data']>(firstResponse, {
-      statusCode: 201,
-    });
+        statusCode: 201,
+      }
+    );
     SchemaValidator.validate(firstResult as unknown as Record<string, unknown>, successSchema);
 
     // Second creation with the same order — should fail
-    const response = await api.post(`/onboarding/config/templates/${demographicsTemplateId}/sections`, [
-      {
-        name: '[Automation] Dup Order B - ' + faker.lorem.words(2),
-        description: '',
-        order: fixedOrder,
-        requiredRole: FillerRole.ANY,
-      },
-    ]);
+    const response = await api.post(
+      `/onboarding/config/templates/${demographicsTemplateId}/sections`,
+      [
+        {
+          name: '[Automation] Dup Order B - ' + faker.lorem.words(2),
+          description: '',
+          order: fixedOrder,
+          requiredRole: FillerRole.ANY,
+        },
+      ]
+    );
 
     const result = await assertGeneralErrorResponse(response, { statusCode: 400 });
     SchemaValidator.validate(result as unknown as Record<string, unknown>, errorSchema);
@@ -363,7 +398,10 @@ test.describe('CREATE SECTION API', () => {
       },
     ];
 
-    const response = await api.post(`/onboarding/config/templates/${systemTemplateId}/sections`, payload);
+    const response = await api.post(
+      `/onboarding/config/templates/${systemTemplateId}/sections`,
+      payload
+    );
     const result = await assertGeneralErrorResponse(response, { statusCode: 403 });
     SchemaValidator.validate(result as unknown as Record<string, unknown>, errorSchema);
   });

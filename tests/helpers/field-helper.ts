@@ -4,6 +4,22 @@ import { ENDPOINTS } from '@api/endpoints/api-endpoints';
 import { getDefaultAutoSelectFamily } from 'net';
 import { logger } from '@utils/logger';
 
+/**
+ * FieldHelper
+ *
+ * Provides utility functions for creating and managing fields within sections
+ * of onboarding templates.
+ */
+
+/**
+ * Creates a new test field within a section and retrieves its ID.
+ *
+ * @param request - Playwright API request context
+ * @param payload - The field creation payload
+ * @param sectionId - The ID of the parent section
+ * @returns The ID of the created field
+ * @throws Error if field creation fails
+ */
 export async function createNewTestField(
   request: APIRequestContext,
   payload: any,
@@ -20,7 +36,9 @@ export async function createNewTestField(
   }
 
   // Get Template and extract field
-  const getTemplateResponse = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE('DEMOGRAPHICS'));
+  const getTemplateResponse = await api.get(
+    ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE('DEMOGRAPHICS')
+  );
   const getTemplateResponseData = await getTemplateResponse.json();
 
   // Find and extract the created fieldId

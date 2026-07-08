@@ -32,6 +32,7 @@ export const ENDPOINTS = {
     GET_EMPLOYEE_POSITIONS_BY_ID: (id: string) => `/employee-positions/${id}`,
   },
   TEMPLATES: {
+    CREATE_TEMPLATE: '/onboarding/config/templates',
     BASE: '/onboarding/config/templates',
     GET_TEMPLATE_BY_ID: (id: string) => `/onboarding/config/templates/${id}`,
     GET_TEMPLATE_BY_CATEGORY: (categoryId: string) =>

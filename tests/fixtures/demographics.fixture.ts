@@ -2,6 +2,7 @@ import { ApiClient } from '@helpers/api-client';
 import { getSectionsNextOrder } from '@helpers/section-helper';
 import { APIRequest, APIRequestContext } from '@playwright/test';
 import { SystemTemplateIds } from 'tests/enums/system-templates.enums';
+import { QA_CONSTANTS } from '@config/constants';
 
 /**
  * Returns an array of fixtures with section name and computed order.
@@ -12,9 +13,5 @@ export async function getDemographicsFixtures(request: any) {
   const api = new ApiClient(request);
   const order = await getSectionsNextOrder(api, demographicsTemplateId);
 
-  return [{ name: 'QA_TEST_SECTION', order }];
-}
-
-export async function getFieldsFixtures(request: APIRequest) {
-  const api = new ApiClient(request);
+  return [{ name: QA_CONSTANTS.TEST_SECTION, order }];
 }
