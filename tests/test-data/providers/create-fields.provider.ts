@@ -441,14 +441,12 @@ export const createFieldTestCasesWithAttributes: CreateFieldTestCase[] = [
         isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
-        visibilityRules: [
-          {
-            targetFieldKey: 'some_key',
-            operator: VisibilityOperator.EQ,
-            value: 'trigger',
-            action: RuleAction.SHOW,
-          },
-        ],
+        visibilityRules: {
+          targetFieldKey: 'some_key',
+          operator: VisibilityOperator.EQ,
+          value: 'trigger',
+          action: RuleAction.SHOW,
+        },
       },
     ],
     expected: {
@@ -467,14 +465,12 @@ export const createFieldTestCasesWithAttributes: CreateFieldTestCase[] = [
         isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
-        visibilityRules: [
-          {
-            targetFieldKey: 'some_key',
-            operator: VisibilityOperator.NEQ,
-            value: 'hide_me',
-            action: RuleAction.SHOW,
-          },
-        ],
+        visibilityRules: {
+          targetFieldKey: 'some_key',
+          operator: VisibilityOperator.NEQ,
+          value: 'hide_me',
+          action: RuleAction.SHOW,
+        },
       },
     ],
     expected: {
@@ -493,14 +489,12 @@ export const createFieldTestCasesWithAttributes: CreateFieldTestCase[] = [
         isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
-        visibilityRules: [
-          {
-            targetFieldKey: 'status',
-            operator: VisibilityOperator.NOT_IN,
-            value: ['archived', 'deleted'],
-            action: RuleAction.SHOW,
-          },
-        ],
+        visibilityRules: {
+          targetFieldKey: 'status',
+          operator: VisibilityOperator.NOT_IN,
+          value: ['archived', 'deleted'],
+          action: RuleAction.SHOW,
+        },
       },
     ],
     expected: {
@@ -519,14 +513,12 @@ export const createFieldTestCasesWithAttributes: CreateFieldTestCase[] = [
         isRequired: false,
         dataTarget: DataTarget.EAV,
         order: await getFieldsNextOrder(api, sectionId),
-        visibilityRules: [
-          {
-            targetFieldKey: 'gender',
-            operator: VisibilityOperator.IN,
-            value: ['male', 'female'],
-            action: RuleAction.SHOW,
-          },
-        ],
+        visibilityRules: {
+          targetFieldKey: 'gender',
+          operator: VisibilityOperator.IN,
+          value: ['male', 'female'],
+          action: RuleAction.SHOW,
+        },
       },
     ],
     expected: {
