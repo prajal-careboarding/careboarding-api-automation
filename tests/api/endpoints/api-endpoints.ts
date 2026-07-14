@@ -34,6 +34,8 @@ export const ENDPOINTS = {
   TEMPLATES: {
     CREATE_TEMPLATE: '/onboarding/config/templates',
     BASE: '/onboarding/config/templates',
+    GET_TEMPLATE: (type: string, isSystem: boolean) =>
+      `/onboarding/config/templates?type=${type}&system=${isSystem}`,
     GET_TEMPLATE_BY_ID: (id: string) => `/onboarding/config/templates/${id}`,
     GET_TEMPLATE_BY_CATEGORY: (categoryId: string) =>
       `/onboarding/config/template-categories/${categoryId}/templates`,

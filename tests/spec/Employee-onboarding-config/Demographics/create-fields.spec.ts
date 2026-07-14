@@ -17,153 +17,154 @@ import Ajv from 'ajv';
 import { logger } from '@utils/logger';
 
 // ─── Data-Driven CREATE FIELDS Tests ─────────────────────────────────────────
+test.describe('Create Fields test cases', () => {
+  test.describe('CREATE BASIC FIELDS', () => {
+    test.describe.configure({ mode: 'serial' });
 
-test.describe('CREATE BASIC FIELDS', () => {
-  test.describe.configure({ mode: 'serial' });
+    let api: ApiClient;
+    let testSectionId: string;
+    const successSchema = SchemaValidator.loadSchema('create-fields.schema.json');
+    const ajv = new Ajv();
 
-  let api: ApiClient;
-  let testSectionId: string;
-  const successSchema = SchemaValidator.loadSchema('create-fields.schema.json');
-  const ajv = new Ajv();
+    test.beforeEach(async ({ request }) => {
+      await new LoginHelper(request).login();
+      api = new ApiClient(request);
 
-  test.beforeEach(async ({ request }) => {
-    await new LoginHelper(request).login();
-    api = new ApiClient(request);
+      testSectionId = (await checkTestableSectionExists(request))
+        ? await getTestSectionId(request)
+        : await createNewTestSection(
+            request,
+            await getDemographicsFixtures(request),
+            SystemTemplateIds.EMPLOYEE_DEMOGRAPHICS
+          );
+    });
 
-    testSectionId = (await checkTestableSectionExists(request))
-      ? await getTestSectionId(request)
-      : await createNewTestSection(
-          request,
-          await getDemographicsFixtures(request),
-          SystemTemplateIds.EMPLOYEE_DEMOGRAPHICS
-        );
+    for (const tc of createFieldTestCasesBasicFields) {
+      test(`Create Fields — ${tc.name}`, async () => {
+        const sectionId = tc.sectionId ?? testSectionId;
+        const payload = Array.isArray(tc.payload) ? tc.payload : await tc.payload(api, sectionId);
+
+        const response = await api.post(ENDPOINTS.FIELDS.CREATE_FIELDS(sectionId), payload);
+        console.log(await response.json());
+
+        if (tc.expected.success) {
+          const result = await assertGeneralSuccessResponse(response, {
+            statusCode: tc.expected.status,
+            message: tc.expected.message,
+          });
+          if (tc.expected.validateSchema) {
+            const isValid = ajv.validate(successSchema, result);
+            if (!isValid) {
+              logger.error(`Schema validation failed: ${ajv.errorsText()}`);
+            }
+          }
+          if (tc.expected.assertCount) {
+            expect(result.data.count).toBe(payload.length);
+          }
+        } else {
+          await assertGeneralErrorResponse(response, { statusCode: tc.expected.status });
+        }
+      });
+    }
   });
 
-  for (const tc of createFieldTestCasesBasicFields) {
-    test(`Create Fields — ${tc.name}`, async () => {
-      const sectionId = tc.sectionId ?? testSectionId;
-      const payload = Array.isArray(tc.payload) ? tc.payload : await tc.payload(api, sectionId);
+  test.describe('CREATE FIELDS WITH CONFIGURATIONS', () => {
+    test.describe.configure({ mode: 'serial' });
 
-      const response = await api.post(ENDPOINTS.FIELDS.CREATE_FIELDS(sectionId), payload);
-      console.log(await response.json());
+    let api: ApiClient;
+    let testSectionId: string;
+    const successSchema = SchemaValidator.loadSchema('create-fields.schema.json');
+    const ajv = new Ajv();
 
-      if (tc.expected.success) {
-        const result = await assertGeneralSuccessResponse(response, {
-          statusCode: tc.expected.status,
-          message: tc.expected.message,
-        });
-        if (tc.expected.validateSchema) {
-          const isValid = ajv.validate(successSchema, result);
-          if (!isValid) {
-            logger.error(`Schema validation failed: ${ajv.errorsText()}`);
-          }
-        }
-        if (tc.expected.assertCount) {
-          expect(result.data.count).toBe(payload.length);
-        }
-      } else {
-        await assertGeneralErrorResponse(response, { statusCode: tc.expected.status });
-      }
+    test.beforeEach(async ({ request }) => {
+      await new LoginHelper(request).login();
+      api = new ApiClient(request);
+
+      testSectionId = (await checkTestableSectionExists(request))
+        ? await getTestSectionId(request)
+        : await createNewTestSection(
+            request,
+            await getDemographicsFixtures(request),
+            SystemTemplateIds.EMPLOYEE_DEMOGRAPHICS
+          );
     });
-  }
-});
 
-test.describe('CREATE FIELDS WITH CONFIGURATIONS', () => {
-  test.describe.configure({ mode: 'serial' });
+    for (const tc of createFieldTestCasesWithAttributes) {
+      test(`Create Fields — ${tc.name}`, async () => {
+        const sectionId = tc.sectionId ?? testSectionId;
+        const payload = Array.isArray(tc.payload) ? tc.payload : await tc.payload(api, sectionId);
 
-  let api: ApiClient;
-  let testSectionId: string;
-  const successSchema = SchemaValidator.loadSchema('create-fields.schema.json');
-  const ajv = new Ajv();
+        const response = await api.post(ENDPOINTS.FIELDS.CREATE_FIELDS(sectionId), payload);
+        console.log(await response.json());
 
-  test.beforeEach(async ({ request }) => {
-    await new LoginHelper(request).login();
-    api = new ApiClient(request);
-
-    testSectionId = (await checkTestableSectionExists(request))
-      ? await getTestSectionId(request)
-      : await createNewTestSection(
-          request,
-          await getDemographicsFixtures(request),
-          SystemTemplateIds.EMPLOYEE_DEMOGRAPHICS
-        );
+        if (tc.expected.success) {
+          const result = await assertGeneralSuccessResponse(response, {
+            statusCode: tc.expected.status,
+            message: tc.expected.message,
+          });
+          if (tc.expected.validateSchema) {
+            const isValid = ajv.validate(successSchema, result);
+            if (!isValid) {
+              logger.error(`Schema validation failed: ${ajv.errorsText()}`);
+            }
+          }
+          if (tc.expected.assertCount) {
+            expect(result.data.count).toBe(payload.length);
+          }
+        } else {
+          await assertGeneralErrorResponse(response, { statusCode: tc.expected.status });
+        }
+      });
+    }
   });
 
-  for (const tc of createFieldTestCasesWithAttributes) {
-    test(`Create Fields — ${tc.name}`, async () => {
-      const sectionId = tc.sectionId ?? testSectionId;
-      const payload = Array.isArray(tc.payload) ? tc.payload : await tc.payload(api, sectionId);
+  test.describe('CREATE FIELDS ERROR CASES', () => {
+    test.describe.configure({ mode: 'parallel' });
 
-      const response = await api.post(ENDPOINTS.FIELDS.CREATE_FIELDS(sectionId), payload);
-      console.log(await response.json());
+    let api: ApiClient;
+    let testSectionId: string;
+    const errorSchema = SchemaValidator.loadSchema('error-response.schema.json');
+    const ajv = new Ajv();
 
-      if (tc.expected.success) {
-        const result = await assertGeneralSuccessResponse(response, {
-          statusCode: tc.expected.status,
-          message: tc.expected.message,
-        });
-        if (tc.expected.validateSchema) {
-          const isValid = ajv.validate(successSchema, result);
-          if (!isValid) {
-            logger.error(`Schema validation failed: ${ajv.errorsText()}`);
-          }
-        }
-        if (tc.expected.assertCount) {
-          expect(result.data.count).toBe(payload.length);
-        }
-      } else {
-        await assertGeneralErrorResponse(response, { statusCode: tc.expected.status });
-      }
+    test.beforeEach(async ({ request }) => {
+      await new LoginHelper(request).login();
+      api = new ApiClient(request);
+
+      testSectionId = (await checkTestableSectionExists(request))
+        ? await getTestSectionId(request)
+        : await createNewTestSection(
+            request,
+            await getDemographicsFixtures(request),
+            SystemTemplateIds.EMPLOYEE_DEMOGRAPHICS
+          );
     });
-  }
-});
 
-test.describe('CREATE FIELDS ERROR CASES', () => {
-  test.describe.configure({ mode: 'parallel' });
+    for (const tc of createFieldTestCasesErrorCases) {
+      test(`Create Fields — ${tc.name}`, async () => {
+        const sectionId = tc.sectionId ?? testSectionId;
+        const payload = Array.isArray(tc.payload) ? tc.payload : await tc.payload(api, sectionId);
 
-  let api: ApiClient;
-  let testSectionId: string;
-  const errorSchema = SchemaValidator.loadSchema('error-response.schema.json');
-  const ajv = new Ajv();
+        const response = await api.post(ENDPOINTS.FIELDS.CREATE_FIELDS(sectionId), payload);
+        console.log(await response.json());
 
-  test.beforeEach(async ({ request }) => {
-    await new LoginHelper(request).login();
-    api = new ApiClient(request);
-
-    testSectionId = (await checkTestableSectionExists(request))
-      ? await getTestSectionId(request)
-      : await createNewTestSection(
-          request,
-          await getDemographicsFixtures(request),
-          SystemTemplateIds.EMPLOYEE_DEMOGRAPHICS
-        );
+        if (tc.expected.success) {
+          const result = await assertGeneralSuccessResponse(response, {
+            statusCode: tc.expected.status,
+            message: tc.expected.message,
+          });
+          if (tc.expected.validateSchema) {
+            const isValid = ajv.validate(errorSchema, result);
+            if (!isValid) {
+              logger.error(`Schema validation failed: ${ajv.errorsText()}`);
+            }
+          }
+          if (tc.expected.assertCount) {
+            expect(result.data.count).toBe(payload.length);
+          }
+        } else {
+          await assertGeneralErrorResponse(response, { statusCode: tc.expected.status });
+        }
+      });
+    }
   });
-
-  for (const tc of createFieldTestCasesErrorCases) {
-    test(`Create Fields — ${tc.name}`, async () => {
-      const sectionId = tc.sectionId ?? testSectionId;
-      const payload = Array.isArray(tc.payload) ? tc.payload : await tc.payload(api, sectionId);
-
-      const response = await api.post(ENDPOINTS.FIELDS.CREATE_FIELDS(sectionId), payload);
-      console.log(await response.json());
-
-      if (tc.expected.success) {
-        const result = await assertGeneralSuccessResponse(response, {
-          statusCode: tc.expected.status,
-          message: tc.expected.message,
-        });
-        if (tc.expected.validateSchema) {
-          const isValid = ajv.validate(errorSchema, result);
-          if (!isValid) {
-            logger.error(`Schema validation failed: ${ajv.errorsText()}`);
-          }
-        }
-        if (tc.expected.assertCount) {
-          expect(result.data.count).toBe(payload.length);
-        }
-      } else {
-        await assertGeneralErrorResponse(response, { statusCode: tc.expected.status });
-      }
-    });
-  }
 });
