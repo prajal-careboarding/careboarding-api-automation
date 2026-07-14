@@ -14,10 +14,9 @@ import { OnboardingTemplateType } from 'tests/enums/onboarding-template.enums';
 import { RandomGenerator } from '@utils/random-generator';
 import {
   allFieldTypesTestCases,
-  // basicFieldTypeTestCases,
-  qaScenarioTestCases,
   CreateFieldTestCase,
   multiSectionMultiFieldTestCases,
+  qaEdgeCasesScenarios,
 } from '../../../test-data/providers/create-employee-form-fields.provider';
 import Ajv from 'ajv';
 import { logger } from '@utils/logger';
@@ -84,7 +83,7 @@ async function setupTestSection(request: any): Promise<string> {
 }
 
 // ─── All Field Types in One Section ───────────────────────────────────────────
-
+// Valid and running properly //
 test.describe('CREATE ALL FIELD TYPES IN ONE SECTION', () => {
   test.describe.configure({ mode: 'serial' });
 
@@ -104,7 +103,7 @@ test.describe('CREATE ALL FIELD TYPES IN ONE SECTION', () => {
 });
 
 // ─── All Field Types in One Section ───────────────────────────────────────────
-
+// Valid and running properly //
 test.describe('CREATE MULTIPLE FIELDS IN MULTIPLE SECTION', () => {
   test.describe.configure({ mode: 'serial' });
 
@@ -144,8 +143,8 @@ test.describe('CREATE MULTIPLE FIELDS IN MULTIPLE SECTION', () => {
 // });
 
 // ─── QA Scenarios ─────────────────────────────────────────────────────────────
-
-test.describe('QA SCENARIOS', () => {
+// Valid and running properly //
+test.describe('QA - Edge Cases Scenarios', () => {
   test.describe.configure({ mode: 'serial' });
 
   let api: ApiClient;
@@ -157,7 +156,7 @@ test.describe('QA SCENARIOS', () => {
     sectionId = await setupTestSection(request);
   });
 
-  for (const tc of qaScenarioTestCases) {
+  for (const tc of qaEdgeCasesScenarios) {
     test(tc.name, async () => {
       await runTestCase(api, tc, tc.sectionId ?? sectionId);
     });

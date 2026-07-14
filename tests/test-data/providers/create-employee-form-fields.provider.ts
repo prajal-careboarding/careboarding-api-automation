@@ -1002,7 +1002,7 @@ export const sectionEdgeCaseTestCases: CreateFieldTestCase[] = [
 
 // // ─── QA Scenarios (Error & Edge Cases) ───────────────────────────────────────
 
-export const qaScenarioTestCases: CreateFieldTestCase[] = [
+export const qaEdgeCasesScenarios: CreateFieldTestCase[] = [
   {
     name: 'Empty array — 400',
     payload: {
