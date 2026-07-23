@@ -16,7 +16,7 @@ import { RandomGenerator } from '@utils/random-generator';
 import { OnboardingTemplateType } from 'tests/enums/onboarding-template.enums';
 
 // Valid and running properly //
-test.describe('DELETE FIELD API', () => {
+test.describe('Delete Field Positive Scenarios', () => {
   test.describe.configure({ mode: 'serial' }); // This configuration is required because in before each we are creating a field and deleting it in the test, if we don't configure it to serial mode, it will run the tests in parallel and we will get an error because the field will be deleted before the test runs
 
   let api: ApiClient;
@@ -28,10 +28,10 @@ test.describe('DELETE FIELD API', () => {
     api = new ApiClient(request);
 
     // Get testable section
-    testSectionId = (await checkTestableSectionExists(request))
-      ? await getTestSectionId(request)
+    testSectionId = (await checkTestableSectionExists(api, OnboardingTemplateType.DEMOGRAPHICS))
+      ? await getTestSectionId(api, OnboardingTemplateType.DEMOGRAPHICS)
       : await createNewTestSection(
-          request,
+          api,
           await getDemographicsFixtures(request),
           SystemTemplateIds.EMPLOYEE_DEMOGRAPHICS
         );
@@ -49,16 +49,26 @@ test.describe('DELETE FIELD API', () => {
 
     // Create deleteable field and get that fieldId
     deleteableFieldId = await createNewTestField(
-      request,
+      api,
       payload,
       OnboardingTemplateType.DEMOGRAPHICS,
       testSectionId
     );
   });
 
-  test('Delete Field', async () => {
+  test('Delete Valid test field', async () => {
     const response = await api.delete(ENDPOINTS.FIELDS.DELETE_FIELDS(deleteableFieldId));
+    console.log(await response.json());
     expect(response.ok()).toBeTruthy();
+  });
+});
+
+test.describe('Delete Field Negative Scenarios', () => {
+  let api: ApiClient;
+
+  test.beforeEach(async ({ request }) => {
+    await new LoginHelper(request).login();
+    api = new ApiClient(request);
   });
 
   test('Delete Field Non-Existing Id 404', async () => {
@@ -68,7 +78,6 @@ test.describe('DELETE FIELD API', () => {
 
   test('Delete Field SYSTEM FIELD 403', async () => {
     const response = await api.delete(ENDPOINTS.FIELDS.DELETE_FIELDS('00000000-0000-0000-0002-000000000001'));
-
     expect(response.ok()).toBeFalsy();
   });
 });

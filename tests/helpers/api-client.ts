@@ -1,4 +1,4 @@
-import { APIRequestContext, APIResponse } from '@playwright/test';
+import { APIRequest, APIRequestContext, APIResponse } from '@playwright/test';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -43,6 +43,10 @@ export class ApiClient {
    */
   static setGlobalToken(token: string) {
     ApiClient.cachedToken = token;
+  }
+
+  static getCachedToken() {
+    return ApiClient.cachedToken;
   }
 
   /**

@@ -22,17 +22,13 @@ import { TemplateType } from '@models/request/employee-onboarding-config/templat
  * @throws Error if field creation fails
  */
 export async function createNewTestField(
-  request: APIRequestContext,
+  api: ApiClient,
   payload: any,
   templateType: TemplateType,
   sectionId: string
 ): Promise<string> {
-  const api = new ApiClient(request); // 'request' usually injected in Playwright test context
-
   // Create Field in section
   const createFieldResponse = await api.post(ENDPOINTS.FIELDS.CREATE_FIELDS(sectionId), payload);
-  logger.info('Create Field Response: ', await createFieldResponse.json());
-  logger.info('Create Field Status: ', createFieldResponse.status());
   if (!createFieldResponse.ok()) {
     throw new Error('Failed to create field');
   }
@@ -47,6 +43,6 @@ export async function createNewTestField(
     .find((item: any) => item.id === sectionId)
     ?.fields.find((field: any) => field.label === payload[0].label);
 
-  logger.info('Created Field :', createdField);
+  console.log('Created Field in Section: ', createdField);
   return createdField.id;
 }

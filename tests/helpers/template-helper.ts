@@ -13,12 +13,10 @@ import { OnboardingTemplateType } from 'tests/enums/onboarding-template.enums';
  * @returns The ID of the created template
  */
 export async function createNewTestTemplate(
-  request: APIRequestContext,
+  api: ApiClient,
   name: string,
   templateType: OnboardingTemplateType
 ): Promise<string> {
-  const api = new ApiClient(request);
-
   const payload: CreateTemplateRequest = {
     name,
     description: 'This is a test Template made from Automation',
@@ -43,10 +41,9 @@ export async function createNewTestTemplate(
 import { QA_CONSTANTS } from '@config/constants';
 
 export async function checkTestableTemplateExists(
-  request: APIRequestContext,
+  api: ApiClient,
   templateType: OnboardingTemplateType
 ): Promise<Boolean> {
-  const api = new ApiClient(request);
   const response = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE(templateType));
   const result = await response.json();
 
@@ -78,10 +75,9 @@ export async function checkTestableTemplateExists(
  * @throws Error if no matching template is found
  */
 export async function getTestTemplateId(
-  request: APIRequestContext,
+  api: ApiClient,
   templateType: OnboardingTemplateType
 ): Promise<string> {
-  const api = new ApiClient(request);
   const response = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE(templateType));
   const result = await response.json();
   console.log(result);
@@ -106,16 +102,14 @@ export async function getTestTemplateId(
  * @throws Error if no matching template is found
  */
 export async function setupTestTemplate(
-  request: APIRequestContext,
+  api: ApiClient,
   templateType: OnboardingTemplateType
 ): Promise<string> {
-  const api = new ApiClient(request);
-
   // Reuse existing QA_TEST_TEMPLATE if one already exists for this type,
   // otherwise create a new one.
-  const templateId = (await checkTestableTemplateExists(request, templateType))
-    ? await getTestTemplateId(request, templateType)
-    : await createNewTestTemplate(request, QA_CONSTANTS.TEST_TEMPLATE, templateType);
+  const templateId = (await checkTestableTemplateExists(api, templateType))
+    ? await getTestTemplateId(api, templateType)
+    : await createNewTestTemplate(api, QA_CONSTANTS.TEST_TEMPLATE, templateType);
 
   return templateId;
 }

@@ -15,6 +15,7 @@ import {
 } from '../../../test-data/providers/create-fields.provider';
 import Ajv from 'ajv';
 import { logger } from '@utils/logger';
+import { OnboardingTemplateType } from 'tests/enums/onboarding-template.enums';
 
 // ─── Data-Driven CREATE FIELDS Tests ─────────────────────────────────────────
 test.describe('Create Fields test cases', () => {
@@ -31,10 +32,10 @@ test.describe('Create Fields test cases', () => {
       await new LoginHelper(request).login();
       api = new ApiClient(request);
 
-      testSectionId = (await checkTestableSectionExists(request))
-        ? await getTestSectionId(request)
+      testSectionId = (await checkTestableSectionExists(api, OnboardingTemplateType.DEMOGRAPHICS))
+        ? await getTestSectionId(api, OnboardingTemplateType.DEMOGRAPHICS)
         : await createNewTestSection(
-            request,
+            api,
             await getDemographicsFixtures(request),
             SystemTemplateIds.EMPLOYEE_DEMOGRAPHICS
           );
@@ -81,10 +82,10 @@ test.describe('Create Fields test cases', () => {
       await new LoginHelper(request).login();
       api = new ApiClient(request);
 
-      testSectionId = (await checkTestableSectionExists(request))
-        ? await getTestSectionId(request)
+      testSectionId = (await checkTestableSectionExists(api, OnboardingTemplateType.DEMOGRAPHICS))
+        ? await getTestSectionId(api, OnboardingTemplateType.DEMOGRAPHICS)
         : await createNewTestSection(
-            request,
+            api,
             await getDemographicsFixtures(request),
             SystemTemplateIds.EMPLOYEE_DEMOGRAPHICS
           );
@@ -131,10 +132,10 @@ test.describe('Create Fields test cases', () => {
       await new LoginHelper(request).login();
       api = new ApiClient(request);
 
-      testSectionId = (await checkTestableSectionExists(request))
-        ? await getTestSectionId(request)
+      testSectionId = (await checkTestableSectionExists(api, OnboardingTemplateType.DEMOGRAPHICS))
+        ? await getTestSectionId(api, OnboardingTemplateType.DEMOGRAPHICS)
         : await createNewTestSection(
-            request,
+            api,
             await getDemographicsFixtures(request),
             SystemTemplateIds.EMPLOYEE_DEMOGRAPHICS
           );

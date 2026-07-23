@@ -2,8 +2,9 @@ import { ENDPOINTS } from '@api/endpoints/api-endpoints';
 import { ApiClient } from './api-client';
 import { CreateSectionsRequest } from '@models/request/employee-onboarding-config/demographics/create-section';
 import { request } from 'node:http';
-import { APIRequestContext } from '@playwright/test';
+import { APIRequest, APIRequestContext } from '@playwright/test';
 import { QA_CONSTANTS } from '@config/constants';
+import { OnboardingTemplateType } from 'tests/enums/onboarding-template.enums';
 
 /**
  * SectionHelper
@@ -69,12 +70,11 @@ export async function getSectionsNextOrder(api: ApiClient, templateId: string): 
  * @returns The ID of the created section
  */
 export async function createNewTestSection(
-  request: APIRequestContext,
+  api: ApiClient,
   payload: any,
   templateId: string,
   templateType?: string
 ): Promise<string> {
-  const api = new ApiClient(request); // 'request' usually injected in Playwright test context
   const createSection = await api.post(ENDPOINTS.SECTIONS.SECTIONS_BY_TEMPLATE_ID(templateId), payload);
   const createSectionRes = await createSection.json();
   return createSectionRes.data.id;
@@ -86,8 +86,7 @@ export async function createNewTestSection(
  * @param request - Playwright API request context
  * @param sectionId - The ID of the section to delete
  */
-export async function deleteSection(request: APIRequestContext, sectionId: string) {
-  const api = new ApiClient(request); // 'request' usually injected in Playwright test context
+export async function deleteSection(api: ApiClient, sectionId: string) {
   const deleteSection = await api.delete(ENDPOINTS.SECTIONS.DELETE_SECTIONS(sectionId));
   const deleteSectionRes = await deleteSection.json();
   return console.log('Deleted Section:', deleteSectionRes.data);
@@ -99,9 +98,11 @@ export async function deleteSection(request: APIRequestContext, sectionId: strin
  * @param request - Playwright API request context
  * @returns True if a test section exists, false otherwise
  */
-export async function checkTestableSectionExists(request: APIRequestContext): Promise<Boolean> {
-  const api = new ApiClient(request);
-  const response = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE('DEMOGRAPHICS'));
+export async function checkTestableSectionExists(
+  api: ApiClient,
+  templateType: OnboardingTemplateType
+): Promise<Boolean> {
+  const response = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE(templateType));
   const result = await response.json();
 
   if (
@@ -129,9 +130,11 @@ export async function checkTestableSectionExists(request: APIRequestContext): Pr
  * @returns The ID of the matching test section
  * @throws Error if no matching section is found
  */
-export async function getTestSectionId(request: APIRequestContext): Promise<string> {
-  const api = new ApiClient(request); // 'request' usually injected in Playwright test context
-  const response = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE('DEMOGRAPHICS'));
+export async function getTestSectionId(
+  api: ApiClient,
+  templateType: OnboardingTemplateType
+): Promise<string> {
+  const response = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE(templateType));
   const result = await response.json();
 
   if (
