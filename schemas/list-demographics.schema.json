@@ -18,15 +18,7 @@
   "definitions": {
     "template": {
       "type": "object",
-      "required": [
-        "id",
-        "name",
-        "type",
-        "version",
-        "status",
-        "isSystem",
-        "sections"
-      ],
+      "required": ["id", "name", "type", "version", "status", "isSystem", "sections"],
       "properties": {
         "id": { "type": "string" },
         "entityId": { "type": ["string", "null"] },
@@ -82,13 +74,7 @@
     },
     "section": {
       "type": "object",
-      "required": [
-        "id",
-        "templateId",
-        "name",
-        "order",
-        "fields"
-      ],
+      "required": ["id", "templateId", "name", "order", "fields"],
       "properties": {
         "id": { "type": "string" },
         "templateId": { "type": "string" },
@@ -112,15 +98,7 @@
     },
     "field": {
       "type": "object",
-      "required": [
-        "id",
-        "sectionId",
-        "key",
-        "component",
-        "type",
-        "label",
-        "order"
-      ],
+      "required": ["id", "sectionId", "key", "component", "type", "label", "order"],
       "properties": {
         "id": { "type": "string" },
         "sectionId": { "type": "string" },

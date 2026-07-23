@@ -1,8 +1,9 @@
 import { APIRequestContext } from '@playwright/test';
 import { ApiClient } from './api-client';
 import { ENDPOINTS } from '@api/endpoints/api-endpoints';
-import { getDefaultAutoSelectFamily } from 'net';
 import { logger } from '@utils/logger';
+import { FieldType } from 'tests/enums/field.enums';
+import { TemplateType } from '@models/request/employee-onboarding-config/templates/create-template';
 
 /**
  * FieldHelper
@@ -23,6 +24,7 @@ import { logger } from '@utils/logger';
 export async function createNewTestField(
   request: APIRequestContext,
   payload: any,
+  templateType: TemplateType,
   sectionId: string
 ): Promise<string> {
   const api = new ApiClient(request); // 'request' usually injected in Playwright test context
@@ -35,10 +37,9 @@ export async function createNewTestField(
     throw new Error('Failed to create field');
   }
 
+  // This extra step was required because the created field response only shows count but not the created field id
   // Get Template and extract field
-  const getTemplateResponse = await api.get(
-    ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE('DEMOGRAPHICS')
-  );
+  const getTemplateResponse = await api.get(ENDPOINTS.TEMPLATES.GET_TEMPLATE_BY_TYPE('DEMOGRAPHICS'));
   const getTemplateResponseData = await getTemplateResponse.json();
 
   // Find and extract the created fieldId

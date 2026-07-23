@@ -40,14 +40,14 @@ test.describe('LIST TEMPLATES API', () => {
     // Validate overall response structure
     const isSuccessResponseValid = ajv.validate(successSchema, data);
     if (!isSuccessResponseValid) {
-      console.log(ajv.errorsText());
+      console.log('Success schema error' + ajv.errorsText());
     }
     expect(isSuccessResponseValid).toBeTruthy();
 
     // Validate demographics schema
     const isDemographicsResponseValid = ajv.validate(demographicsSchema, data);
     if (!isDemographicsResponseValid) {
-      console.log(ajv.errorsText());
+      console.log('Demographics schema error' + ajv.errorsText());
     }
     expect(isDemographicsResponseValid).toBeTruthy();
 

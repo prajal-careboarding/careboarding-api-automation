@@ -60,26 +60,40 @@ async function runTestCase(api: ApiClient, tc: CreateFieldTestCase, sectionId?: 
   }
 }
 
-async function setupTestTemplate(request: any) {
+async function setupTestTemplate(request: any): Promise<string> {
   const api = new ApiClient(request);
-  const templateId = (await checkTestableTemplateExists(request, OnboardingTemplateType.AGENCY_FORM))
-    ? await getTestTemplateId(request, OnboardingTemplateType.AGENCY_FORM)
-    : await createNewTestTemplate(request, `QA_TEST_TEMPLATE`, OnboardingTemplateType.AGENCY_FORM);
+  try {
+    const templateId = (await checkTestableTemplateExists(request, OnboardingTemplateType.AGENCY_FORM))
+      ? await getTestTemplateId(request, OnboardingTemplateType.AGENCY_FORM)
+      : await createNewTestTemplate(request, `QA_TEST_TEMPLATE`, OnboardingTemplateType.AGENCY_FORM);
 
-  return templateId;
+    return templateId;
+  } catch (error) {
+    logger.error(`Error setting up test template: ${error}`);
+    throw error;
+  }
 }
 
 async function setupTestSection(request: any): Promise<string> {
-  const templateId = await setupTestTemplate(request);
-  const api = new ApiClient(request);
-  const createSection = await api.post(ENDPOINTS.SECTIONS.SECTIONS_BY_TEMPLATE_ID(templateId), {
-    name: `QA_SCENARIO_SECTION_${random.integer(5)}`,
-    description: 'section for qa scenarios',
-    order: await getSectionsNextOrder(api, templateId),
-    isRepeatable: false,
-  });
-  const res = await createSection.json();
-  return res.data.id;
+  try {
+    const templateId = await setupTestTemplate(request);
+    const api = new ApiClient(request);
+    const createSection = await api.post(ENDPOINTS.SECTIONS.SECTIONS_BY_TEMPLATE_ID(templateId), [
+      {
+        name: `QA_SCENARIO_SECTION_${random.integer(5)}`,
+        description: 'section for qa scenarios',
+        order: await getSectionsNextOrder(api, templateId),
+        isRepeatable: false,
+        isRequired: false,
+      },
+    ]);
+    const res = await createSection.json();
+    console.log(res);
+    return res.data.id;
+  } catch (error) {
+    logger.error(`Error setting up test section: ${error}`);
+    throw error;
+  }
 }
 
 // ─── All Field Types in One Section ───────────────────────────────────────────
@@ -121,26 +135,6 @@ test.describe('CREATE MULTIPLE FIELDS IN MULTIPLE SECTION', () => {
     });
   }
 });
-// ─── Basic Field Type Creation ────────────────────────────────────────────────
-
-// test.describe('BASIC FIELD TYPE CREATION', () => {
-//   test.describe.configure({ mode: 'serial' });
-
-//   let api: ApiClient;
-//   let sectionId: string;
-
-//   test.beforeEach(async ({ request }) => {
-//     await new LoginHelper(request).login();
-//     api = new ApiClient(request);
-//     sectionId = await setupTestSection(request);
-//   });
-
-//   for (const tc of basicFieldTypeTestCases) {
-//     test(tc.name, async () => {
-//       await runTestCase(api, tc.sectionId ?? sectionId, tc);
-//     });
-//   }
-// });
 
 // ─── QA Scenarios ─────────────────────────────────────────────────────────────
 // Valid and running properly //
@@ -162,3 +156,24 @@ test.describe('QA - Edge Cases Scenarios', () => {
     });
   }
 });
+
+// ─── Basic Field Type Creation ────────────────────────────────────────────────
+
+// test.describe('BASIC FIELD TYPE CREATION', () => {
+//   test.describe.configure({ mode: 'serial' });
+
+//   let api: ApiClient;
+//   let sectionId: string;
+
+//   test.beforeEach(async ({ request }) => {
+//     await new LoginHelper(request).login();
+//     api = new ApiClient(request);
+//     sectionId = await setupTestSection(request);
+//   });
+
+//   for (const tc of basicFieldTypeTestCases) {
+//     test(tc.name, async () => {
+//       await runTestCase(api, tc.sectionId ?? sectionId, tc);
+//     });
+//   }
+// });

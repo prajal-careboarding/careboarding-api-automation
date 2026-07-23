@@ -13,6 +13,7 @@ import { SystemTemplateIds } from 'tests/enums/system-templates.enums';
 import { createNewTestField } from '@helpers/field-helper';
 import { DataTarget, FieldType } from 'tests/enums/field.enums';
 import { RandomGenerator } from '@utils/random-generator';
+import { OnboardingTemplateType } from 'tests/enums/onboarding-template.enums';
 
 // Valid and running properly //
 test.describe('DELETE FIELD API', () => {
@@ -47,7 +48,12 @@ test.describe('DELETE FIELD API', () => {
     ];
 
     // Create deleteable field and get that fieldId
-    deleteableFieldId = await createNewTestField(request, payload, testSectionId);
+    deleteableFieldId = await createNewTestField(
+      request,
+      payload,
+      OnboardingTemplateType.DEMOGRAPHICS,
+      testSectionId
+    );
   });
 
   test('Delete Field', async () => {
